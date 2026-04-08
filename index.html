@@ -1384,7 +1384,10 @@ let pozoEditando = null;
 function guardarPozo(){
 
   const nombre = pozoNombre.value;
-
+  if(!nombre){
+    alert("Completa los datos");
+    return;
+  }
   
   if(pozoEditando !== null){
 
@@ -1455,7 +1458,7 @@ function cerrarNuevo(){
 function guardarNuevo(){
 
   const nombre = nuevoNombre.value;
-  const  responsable = nuevoRespon.value;
+  const responsable = nuevoRespon.value;
   const estado = nuevoEstado.value;
   const municipio = nuevoMunicipio.value;
   const fecha = nuevoFecha.value;
@@ -2104,10 +2107,10 @@ function calcularA(){
     const eficib = Number(document.getElementById("eficib").value)|| 0;
     const inversion_mb = Number(document.getElementById("inversion_mb").value)|| 0;
 
-//if (!gasto || !nisuccion || !alturaman || !presiondes || !potelc || !hropera_mb || !costointe || !eficim || !eficib || !inversion_mb) {
-  //  alert("Completa todos los datos del cálculo");
-   //return;
-  //}
+if (!gasto || !nisuccion || !alturaman || !presiondes || !potelc || !hropera_mb || !costointe || !eficim || !eficib || !inversion_mb) {
+  alert("Completa todos los datos del cálculo");
+  return;
+  }
         
 
   //Formulas de A
@@ -2207,33 +2210,33 @@ function calcularB(){
     const inversion_m = Number(document.getElementById("inversion_m").value);
    
 
- // if (!potnom || !npolos || !tnominal || !efinomi || !tipo || !antiguo || !nrebo || !hropera_m || !costoint || !vab || !ia || !vbc || !ib || !vca || !ic ||!fp || !potnom_1 || !tnominal_1 || !efinomi_1 || !inversion_m) {
-      //  alert("Completa todos los datos del cálculo");
-       // return;
-    //}
+ if (!potnom || !npolos || !tnominal || !efinomi || !tipo || !antiguo || !nrebo || !hropera_m || !costoint || !vab || !ia || !vbc || !ib || !vca || !ic ||!fp || !potnom_1 || !tnominal_1 || !efinomi_1 || !inversion_m) {
+        alert("Completa todos los datos del cálculo");
+        return;
+    }
 
 
 //Formulas de B
 
-    const pot_elec_dem = ((1.732*((vab+vbc+vca)/3))*((ia+ib+ic)/3)*fp/100000);   
-    const pot_mec_entr = ((pot_elec_dem*92.5/0.746)/100);
-    const fact_carga = ((pot_mec_entr/potnom)*100);
-    const consum_energia = (pot_elec_dem*hropera_m);
-    const fact_elec = (consum_energia*costoint);
-    const pot_elec_dem_1 = (((pot_mec_entr*0.746)/efinomi_1)*100);
-    const fac_carga = ((pot_mec_entr/potnom_1)*100);
-    const consum_energia_1 = (pot_elec_dem_1*hropera_m);
-    const fact_elec_1 = (consum_energia_1*costoint);
-    const ahorros = (fact_elec-fact_elec_1);
-    const PSRI_1 = (inversion_m/ahorros);
-    const prome = ((vab+vbc+vca)/3);
+    const pot_elec_dem = ((1.732*((vab+vbc+vca)/3))*((ia+ib+ic)/3)*fp/100000)|| 0; 
+    const pot_mec_entr = ((pot_elec_dem*92.5/0.746)/100)|| 0; 
+    const fact_carga = ((pot_mec_entr/potnom)*100)|| 0; 
+    const consum_energia = (pot_elec_dem*hropera_m)|| 0; 
+    const fact_elec = (consum_energia*costoint)|| 0; 
+    const pot_elec_dem_1 = (((pot_mec_entr*0.746)/efinomi_1)*100)|| 0; 
+    const fac_carga = ((pot_mec_entr/potnom_1)*100)|| 0; 
+    const consum_energia_1 = (pot_elec_dem_1*hropera_m)|| 0; 
+    const fact_elec_1 = (consum_energia_1*costoint)|| 0; 
+    const ahorros = (fact_elec-fact_elec_1)|| 0; 
+    const PSRI_1 = (inversion_m/ahorros)|| 0; 
+    const prome = ((vab+vbc+vca)/3)|| 0; 
     const desb_volt = (Math.max(
     (Math.max(vab,vbc,vca) - prome),
     (prome - Math.min(vab,vbc,vca))
-) / prome) * 100;
+) / prome) * 100|| 0; 
 
-const dif_volt = ((prome - tnominal) / tnominal) * 100;
-    const fe5= efinomi/100
+const dif_volt = ((prome - tnominal) / tnominal) * 100|| 0; 
+    const fe5= efinomi/100|| 0; 
 let resultado;
 
 if (fe5 > 0) {
@@ -2268,7 +2271,7 @@ if (nrebo === 1) {
     restaFinal = 0.03;
 }
 
-const resultadoFinal = (resultado - restaFinal) * 100;
+const resultadoFinal = (resultado - restaFinal) * 100|| 0; 
 
   proyectoActivo.pozos[pozoActivo].calcB={
     inputs:{
@@ -2359,10 +2362,10 @@ function calcularC(){
    const eficibom_4 = Number(document.getElementById("eficibom_4").value)|| 0;
    const inversion_4 = Number(document.getElementById("inversion_4").value)|| 0;
   
- //if (!gasto_4 || !nisuccion_4 || !altmano_4 || !presidescar_4 || !potelec_4 || !eficimotor_4 || !hropera_4 || !costoenergi_4 || !eficibom_4 || !inversion_4) {
-   //     alert("Completa todos los datos del cálculo");
-     //   return;
-    //}
+ if (!gasto_4 || !nisuccion_4 || !altmano_4 || !presidescar_4 || !potelec_4 || !eficimotor_4 || !hropera_4 || !costoenergi_4 || !eficibom_4 || !inversion_4) {
+     alert("Completa todos los datos del cálculo");
+        return;
+    }
 
 
 
@@ -2370,16 +2373,16 @@ function calcularC(){
 // Fórmulas de C
 
 
-    const eficibomba_4 = (((((nisuccion_4+altmano_4+presidescar_4*10)*1.11)*gasto_4*9.81)/1000)/potelec_4)/eficimotor_4*100;
-    const consumoenergi_4 = (potelec_4*hropera_4);
-    const factelec_4 = (consumoenergi_4*costoenergi_4);
-    const gasto_5 = (gasto_4);
-    const carga_4 = ((nisuccion_4+altmano_4+presidescar_4*10)*1.11);
-    const potelectri_4 = ((potelec_4*eficibomba_4)/eficibom_4);
-    const consumenergi_4 = (potelectri_4*hropera_4)*100;
-    const factelectri_4 = (consumenergi_4*costoenergi_4);
-    const ahorro_4 = (factelec_4-factelectri_4);
-    const psri_4 = (inversion_4/ahorro_4);
+    const eficibomba_4 = ((((((nisuccion_4+altmano_4+presidescar_4*10)*1.11)*gasto_4*9.81)/1000)/potelec_4)/eficimotor_4*100)*100 || 0; 
+    const consumoenergi_4 = (potelec_4*hropera_4)|| 0; 
+    const factelec_4 = (consumoenergi_4*costoenergi_4)|| 0; 
+    const gasto_5 = (gasto_4)|| 0; 
+    const carga_4 = ((nisuccion_4+altmano_4+presidescar_4*10)*1.11)|| 0; 
+    const potelectri_4 = ((potelec_4*eficibomba_4)/eficibom_4)|| 0; 
+    const consumenergi_4 = (potelectri_4*hropera_4)*100|| 0; 
+    const factelectri_4 = (consumenergi_4*costoenergi_4)|| 0; 
+    const ahorro_4 = (factelec_4-factelectri_4)|| 0; 
+    const psri_4 = (inversion_4/ahorro_4)|| 0; 
    
 
 
@@ -2457,10 +2460,10 @@ const fp5 = fact_pot5 / 100;
 const fpr = fact_potr / 100;
 
 
- /*if (!fact_pot5 || !ener_consum5 || !import_iva || !hropera_5 || !capa_capa || !costo_banco || !fact_potr) {
+ if (!fact_pot5 || !ener_consum5 || !import_iva || !hropera_5 || !capa_capa || !costo_banco || !fact_potr) {
         alert("Completa todos los datos del cálculo");
        return;
-    }*/
+    }
 
 
 // Fórmulas de D
@@ -2504,11 +2507,11 @@ resultado2 = import_iva * (1 + 0.25 * (1 - 0.9 / fp5)) *
 
 }
 
-const capaci_capacir = (ener_consum5 * (Math.sqrt(1/(fp5**2) - 1) - Math.sqrt(1/(fpr**2) - 1))) / hropera_5;
-const ahorro_espera = (resultado);
-const fact_pot_espera = (resultado1*100);
-const ahorro_5 = (resultado2);
-const PSRI_5 = (costo_banco/ahorro_5);
+const capaci_capacir = (ener_consum5 * (Math.sqrt(1/(fp5**2) - 1) - Math.sqrt(1/(fpr**2) - 1))) / hropera_5|| 0; 
+const ahorro_espera = (resultado)|| 0; 
+const fact_pot_espera = (resultado1*100)|| 0; 
+const ahorro_5 = (resultado2)|| 0; 
+const PSRI_5 = (costo_banco/ahorro_5)|| 0; 
 
   proyectoActivo.pozos[pozoActivo].calcD={
   inputs:{
@@ -2569,17 +2572,17 @@ function calcularE(){
 
 
 
-  /*if (!nisuccion_6 || !altmano_6 || !numdiapro || !consumenergi_6 || !costoenergi_6 || !presion1 || !caudal1 || !dprom1 || !presion2 || !caudal2 ||!dprom2 || !presion3 || !caudal3 || !dprom3 || !presionvv ||! capacidadvv || !inversion_6) {
+  if (!nisuccion_6 || !altmano_6 || !numdiapro || !consumenergi_6 || !costoenergi_6 || !presion1 || !caudal1 || !dprom1 || !presion2 || !caudal2 ||!dprom2 || !presion3 || !caudal3 || !dprom3 || !presionvv ||! capacidadvv || !inversion_6) {
         alert("Completa todos los datos del cálculo");
        return;
-    }*/
+    }
 
 // Fórmulas de E
 
   const ahorro_6 = ((((dprom1*caudal1*(nisuccion_6+altmano_6+presion1*10))+(dprom2*caudal2*(nisuccion_6+altmano_6+presion2*10))+(dprom3*caudal3*(nisuccion_6+altmano_6+presion3*10)))-
-  ((nisuccion_6+altmano_6+presionvv*10)*(dprom1*caudal1+dprom2*caudal2+dprom3*caudal3)))/((dprom1*caudal1*(nisuccion_6+altmano_6+presion1*10))+(dprom2*caudal2*(nisuccion_6+altmano_6+presion2*10))+(dprom3*caudal3*(nisuccion_6+altmano_6+presion3*10)))*consumenergi_6*costoenergi_6);
+  ((nisuccion_6+altmano_6+presionvv*10)*(dprom1*caudal1+dprom2*caudal2+dprom3*caudal3)))/((dprom1*caudal1*(nisuccion_6+altmano_6+presion1*10))+(dprom2*caudal2*(nisuccion_6+altmano_6+presion2*10))+(dprom3*caudal3*(nisuccion_6+altmano_6+presion3*10)))*consumenergi_6*costoenergi_6)|| 0; 
 
-  const PSRI_6 = (inversion_6/ahorro_6);
+  const PSRI_6 = (inversion_6/ahorro_6)|| 0; 
 
   proyectoActivo.pozos[pozoActivo].calcE={
  inputs:{
