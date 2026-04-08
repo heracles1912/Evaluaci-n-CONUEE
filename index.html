@@ -1,0 +1,3160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Sistema Tipo CONUEE</title>
+
+<style>
+
+
+.conuee{
+  position:absolute;
+  font-size:18px;
+  color:#2e7d32;
+  opacity:0.05;
+  animation:caer linear infinite;
+  white-space:nowrap;
+}
+.card-app{
+  position:relative;
+  z-index:2;
+}
+@keyframes caer{
+  0%{
+    transform:translate(0,0);
+    opacity:0;
+  }
+  10%{
+    opacity:8;
+  }
+  100%{
+    transform:translate(200px, 120vh);
+    opacity:0;
+  }
+}
+tfoot{
+  background:#2e7d32;
+  color:white;
+  font-weight:bold;
+}
+
+tfoot td{
+  padding:10px;
+  border-top:2px solid #1b5e20;
+}
+body{
+  font-family: Arial;
+  background:#f2f2f2;
+  margin:0;
+}
+
+/* HEADER */
+.header{
+  background:#e8f5e9;
+  padding:15px;
+}
+
+.top-bar{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+  
+}
+
+input{
+  padding:6px;
+}
+
+/* TABLA */
+.tabla{
+  background:#e8f5e9;
+
+  padding:20px;
+  
+}
+
+table{
+  width:100%;
+  
+  background:#e8f5e9;
+}
+
+th{
+  background:#2e7d32;
+  color:white;
+  padding:12px;
+  font-size:14px;
+  letter-spacing:0.5px;
+}
+td{
+  text-align:center;
+  font-size:14px;
+}
+
+td:first-child{
+  text-align:center;
+  font-weight:500;
+}
+#tablaPozos tbody tr{
+  background:#ffffff;
+  transition:0.2s;
+}
+
+#tablaPozos tbody tr:nth-child(even){
+  background:#f7f9f7; /* zebra elegante */
+}
+
+#tablaPozos tbody tr:hover{
+  background:#8cc691;
+  transform:scale(1.005);
+}
+
+#tablaProyectos tbody tr{
+  background:#ffffff;
+  transition:0.2s;
+}
+
+#tablaProyectos tbody tr:nth-child(even){
+  background:#f7f9f7; /* zebra elegante */
+}
+
+#tablaProyectos tbody tr:hover{
+  background:#8cc691;
+  transform:scale(1.005);
+}
+
+.positivo{
+  color:#2e7d32;
+  font-weight:bold;
+}
+
+.negativo{
+  color:#c62828;
+  font-weight:bold;
+}
+
+.cero{
+  color:#999;
+}
+td.positivo{
+  background:#e8f5e9;
+}
+
+td.negativo{
+  background:#ffebee;
+}
+
+td.amarillo{
+  background:#fff8e1;
+}
+button{
+  background:#2e7d32;
+  color:rgb(4, 2, 2);
+  border:none;
+  padding:8px 12px;
+  border-radius:6px;
+}
+
+button:hover{
+  background:#1b5e20;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+}
+
+.modal-conteni{
+  background:white;
+  width:300px; /* 👈 más ancho */
+  max-height:90vh; /* 👈 límite de pantalla */
+  overflow-y:auto; /* 👈 scroll vertical */
+  margin:40px auto;
+  padding:20px;
+  border-radius:10px;
+  position:relative;
+   display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.modal-content{
+  background:#e8f5e9;
+  width:800px; /* 👈 más ancho */
+  max-height:90vh; /* 👈 límite de pantalla */
+  overflow-y:auto; /* 👈 scroll vertical */
+  margin:40px auto;
+  padding:20px;
+  border-radius:10px;
+  position:relative;
+}
+
+.oculto{
+  display:none;
+}
+
+tr{
+  transition:0.2s;
+}
+
+
+.cerrarX{
+  position:absolute;
+  top:15px;
+  right:20px;
+  background:none;
+  border:none;
+  font-size:20px;
+  cursor:pointer;
+}
+.modal-content{
+  position:relative; /* IMPORTANTE */
+}
+button{
+  padding:6px 10px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  cursor:pointer;
+  background:#f5f5f5;
+}
+
+button:hover{
+  background:#e0e0e0;
+}
+.campoVista{
+  display:inline-block;
+  padding:6px 10px;
+  background:#fff;
+  border:1px solid #ccc;
+  border-radius:4px;
+  min-width:180px;
+}
+.infoProyecto{
+  display:flex;
+  gap:40px;
+  margin-top:10px;
+  
+}
+
+.label{
+  font-size:14px;
+  color:#666;
+}
+
+.valor{
+  font-size:16px;
+  font-weight:bold;
+  color:#2e7d32; /* verde elegante */
+  margin-left:5px;
+}
+
+
+.accion{
+  cursor:pointer;
+  color:#065111;
+  text-align:center;
+  transition:0.2s;
+}
+
+.accion:hover{
+  background:#9ee391;
+  border-radius:1px;
+  text-decoration:underline;
+  transform:scale(1);
+}
+
+.panelCalculo{
+  display:flex;
+  gap:30px;
+  align-items:flex-start;
+}
+
+.panelInputs{
+  background:#f9f9f9;
+  padding:15px;
+  border-radius:10px;
+  border:1px solid #ddd;
+}
+
+.panelResultados{
+  background:#f9f9f9;
+  padding:15px;
+  border-radius:10px;
+  border:1px solid #ddd;
+}
+
+
+.ok{
+  color:#142601;
+  font-weight:bold;
+}
+
+td{
+  text-align:center;
+}
+
+.negativo{
+  color:#c62828;
+}
+
+.positivo{
+  color:#1b5e20;
+  font-weight:bold;
+}
+.fila-doble{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:8px;
+}
+
+.fila-doble label{
+  font-size:13px;
+  color:#2e7d32;
+}
+
+.fila-doble input{
+  width:70px;
+  padding:4px;
+  text-align:right;
+  border:1px solid #ccc;
+  border-radius:4px;
+  background:#f5f5f5;
+}
+
+.fila-doble span{
+  font-size:12px;
+  color:#555;
+  margin-right:10px;
+}
+
+.fila{
+  display:flex;
+  align-items:center;
+  gap: 6px;
+
+  margin-bottom:8px;
+}
+
+.fila label{
+  width:160px;
+  font-size:14px;
+  color:#000000;
+}
+
+.fila input{
+  width:90px; /* 👈 pequeño tipo CONUEE */
+  padding:4px;
+  text-align:right;
+  border:1px solid #ccc;
+  border-radius:4px;
+  background:#f5f5f5;
+}
+
+.fila span{
+  width:70px;
+  font-size:13px;
+  color:#555555;
+  margin-left:10px; /* 👈 separa del input */
+}
+
+h2{
+  font-size:16px;
+  color:#2e7d32;
+  margin-top:15px;
+  
+  
+}
+
+h3{
+  font-size:16px;
+  color:#2e7d32;
+  margin-top:15px;
+}
+.col-eliminar{
+  text-align:center;
+  width:60px;
+}
+
+
+.col-eliminar button{
+  background:transparent;
+  border:none;
+  font-size:18px;
+  cursor:pointer;
+  opacity:0.5;
+  transition:0.2s;
+}
+
+tr:hover .col-eliminar button{
+  opacity:1;
+  transform:scale(2);
+}
+.btn-eliminar{
+  background:#ffebee;
+  border:none;
+  border-radius:6px;
+  padding:6px 8px;
+  cursor:pointer;
+  margin-left:5px;
+  transition:0.2s;
+}
+
+.btn-eliminar:hover{
+  background:#ffcdd2;
+  transform:scale(1.1);
+  
+}
+.panelResultados{
+  padding:30px;          /* antes 20 */
+  border-radius:10px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.08);
+  font-size:14px;        /* 👈 clave */
+}
+.campo{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  margin-bottom:10px; /* 👈 controla el espacio */
+}
+
+.campo label{
+  font-size:13px;
+  font-weight:500;
+  margin:0; /* 👈 elimina espacio raro */
+}
+
+.campo input{
+  padding:6px;
+  font-size:13px;
+}
+.header-bar{
+  
+  padding:15px;
+  border-bottom: 2.5px solid rgb(89, 144, 6)
+}
+
+
+
+/* LOGO a la izquierda */
+.logo{
+  position:CENTER;
+  left:0px;
+  width:300px;
+}
+
+/* TITULO centrado */
+.header-bar h1{
+  color:#19580f; /* verde CONUEE */
+  font-size:35px;
+  text-align:center;
+  margin:0;
+}
+body{
+  background:#f2f2f2;
+  margin:0;
+  font-family:Arial;
+}
+
+/* TARJETA PRINCIPAL */
+.card-app{
+  max-width:1300px;
+  margin:30px auto;
+ 
+  border-radius:12px;
+ 
+  overflow:hidden;
+}
+.fila-semaforo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.semaforo{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:gray;
+  box-shadow:0 0 5px rgba(0,0,0,0.3);
+}
+
+.verde{ background:#2e7d32; box-shadow:0 0 10px #2e7d32; 
+ animation:parpadeo 2s infinite;}
+.amarillo{ background:#f9a825; box-shadow:0 0 10px #f9a825; 
+ animation:parpadeo 1.2s infinite;}
+.rojo{ background:#c62828; box-shadow:0 0 10px #c62828; 
+ animation:parpadeo 0.4s infinite;}
+
+@keyframes parpadeo{
+  0%{opacity:1;}
+  50%{opacity:0.3;}
+  100%{opacity:1;}
+}
+.bloqueado{
+  background:#555454;
+  color:#10af10;
+  cursor:not-allowed;
+  opacity:0.6;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card-app">
+
+<div class="header">
+
+<div class="header-bar">
+  <img src="conuee.png" class="logo">
+  
+  <h1>
+    Evaluador de medidas de ahorro de energía en <br>
+    sistemas de bombeo de agua potable.
+  </h1>
+</div>
+
+<h2>Registre Nuevo Proyecto:</h2>
+  <div class="top-bar">
+    <button onclick="abrirNuevo()">➕ Nuevo</button>
+    <input id="folio" placeholder="Folio" onkeydown="buscarPorFolio(event)">
+    <button onclick="abrirBuscador()">🔍</button>
+  </div><br>
+
+  <!-- 👇 INFO -->
+  <div class="infoProyecto">
+    <div>
+      <span class="label">Proyecto:</span>
+      <span id="proyecto" class="valor"></span>
+    </div>
+    <div>
+      <span class="label">Municipio:</span>
+      <span id="municipio" class="valor"></span>
+    </div>
+
+    <div>
+     <span class="label">Responsable:</span>
+     <span id="responsable" class="valor"></span>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+<div class="tabla">
+  <button onclick="abrirPozo()">➕ Agregar Pozo</button><br><br>
+  <table id="tablaPozos">
+    <thead>
+        <tr>
+        <th>Nombre</th>
+        <th>Motor-Bomba</th>
+        <th>Motor</th>
+        <th>Bomba</th>
+        <th>FP</th>
+        <th>VV</th>
+        <th>Tarifa</th>
+        <th>Total Ahorro</th>
+        <th>Inversion</th>
+        <th>Retorno de inversion (meses)</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+        </tr>
+    </thead>
+
+    <tbody>
+      <tfoot>
+  <tr id="filaTotales">
+    <td><b>TOTAL</b></td>
+    <td id="totA"></td>
+    <td id="totB"></td>
+    <td id="totC"></td>
+    <td id="totD"></td>
+    <td id="totE"></td>
+    <td id="totTarifa"></td>
+    <td id="totAhorro"></td>
+    <td id="totInversion"></td>
+    <td id="totRetorno"></td>
+    <td></td>
+    <td></td>
+  </tr>
+</tfoot>
+    </tbody>
+  </table>
+</div>
+
+
+
+<!-- MODAL -->
+<div id="modalBuscador" class="modal oculto">
+  <div class="modal-content">
+    
+    <h3>Filtra por Proyecto o Municipio</h3>
+
+    <input id="filtro" placeholder="Filtrar..." onkeyup="filtrar()"><br><br>
+
+   <table id="tablaProyectos">
+      <thead>
+        <tr>
+          <th>Folio</th>
+          <th>Nombre</th>
+          <th>Estado</th>
+          <th>Proyecto</th>
+          <th>Municipio</th>
+          <th>Fecha</th>
+          <th>Editar</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+
+      <tbody id="listaProyectos"></tbody>
+    </table><br>
+    <button onclick="cerrarBuscador()">⬅ Volver</button>
+  </div>
+</div>
+
+
+
+<div id="modalNuevo" class="modal oculto">
+  <div class="modal-conteni">
+
+   <h2 id="tituloModal">Nuevo Proyecto</h2>
+
+<div class="campo">
+  <label>Responsable</label>
+  <input id="nuevoRespon" placeholder="Ej. Julio">
+</div>
+
+<div class="campo">
+  <label>Estado</label>
+  <input id="nuevoEstado" placeholder="Ej. Chiapas">
+</div>
+
+    <div class="campo">
+  <label>Nombre del Proyecto</label>
+  <input id="nuevoNombre" placeholder="Ej. Bombeo">
+</div>
+
+<div class="campo">
+  <label>Municipio</label>
+  <input id="nuevoMunicipio" placeholder="Ej. G.A.M.">
+</div>
+
+<div class="campo">
+  <label>Fecha</label>
+  <input id="nuevoFecha" type="date">
+</div>
+
+    <button onclick="guardarNuevo()">💾 Guardar</button>
+    <button onclick="cerrarNuevo()">❌ Cancelar</button>
+
+  </div>
+</div>
+
+<div id="modalPozo" class="modal oculto">
+  <div class="modal-conteni">
+
+    <h2>Nuevo Pozo</h2>
+
+    <div class="campo">
+        <label>Nombre de Pozo</label>
+        <input id="pozoNombre" placeholder="Nombre del pozo">
+    </div>
+
+
+    <button onclick="guardarPozo()">💾 Guardar</button>
+    <button onclick="cerrarPozo()">❌ Cancelar</button>
+
+  </div>
+</div>
+
+
+<!-- ================= MENU CALCULOS ================= -->
+<div id="menuCalculos" class="seccion oculto"></div>
+
+
+<!-- ================= CALCULO CAMBIO DE TARIFA ================= -->
+<div id="modalcalcTarifa" class="modal oculto">
+<div class="modal-content">
+
+<h1>Cambio de Tarifa</h1>
+
+<button onclick="calcularTarifa()">Calcular</button>
+<button onclick="cerrarModalTarifa()">❌ Cerrar</button><br><br>
+<div class="panelCalculo">
+
+<!-- IZQUIERDA -->
+<div class="panelInputs">
+
+<h2>Datos del recibo CFE</h2>
+
+<div class="fila">
+  <label>Consumo mensual</label>
+  <input id="consumo_kwh">
+  <span>kWh</span>
+</div>
+
+<div class="fila">
+  <label>Costo total</label>
+  <input id="costo_total">
+  <span>$</span>
+</div>
+
+<div class="fila">
+  <label>Demanda máxima</label>
+  <input id="demanda_kw">
+  <span>kW</span>
+</div>
+
+<h2>Horas de operación</h2>
+
+<div class="fila">
+  <label>Horas</label>
+  <input id="horas_mes">
+  <span>h/mes</span>
+</div>
+
+<h2>Tarifas CFE</h2>
+
+<div class="fila">
+  <label>Tarifa OM</label>
+  <input id="tarifa_om">
+  <span>$/kWh</span>
+</div>
+
+<div class="fila">
+  <label>Tarifa HM</label>
+  <input id="tarifa_hm">
+  <span>$/kWh</span>
+</div>
+
+
+</div>
+
+
+<!-- DERECHA -->
+ 
+<div class="panelResultados">
+
+
+<div id="resultadoTarifaCompleto">-</div>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+<!-- ================= CALCULO A ================= -->
+
+<div id="modalcalcA" class="modal oculto">
+    
+<div class="modal-content">
+
+<h1>Cálculo Motor - Bomba</h1>
+<button onclick="calcularA()">Calcular</button>
+<button onclick="cerrarModalCalcA()">❌ Cerrar</button><br><br>
+<div class="panelCalculo">
+
+<!-- IZQUIERDA -->
+<div class="panelInputs">
+
+<!--Vizualiza en la pagina lo que quieres se va a calcular -->
+<h2>Datos de entrada</h2>
+
+    <div class="fila">
+        <label>Gasto</label>
+        <input id="gasto">
+        <span>lps</span>
+    </div>  
+
+    <div class="fila">
+         <label>Altura del Manometro</label>
+        <input id="nisuccion">
+        <span>m</span>
+
+    </div>
+     
+   <div class="fila">
+  <label>Altura manométrica</label>
+  <input id="alturaman">
+  <span>m</span>
+</div>
+
+<div class="fila">
+  <label>Presión de descarga</label>
+  <input id="presiondes">
+  <span>kg/cm²</span>
+</div>
+
+<div class="fila">
+  <label>Potencia eléctrica</label>
+  <input id="potelc">
+  <span>kW</span>
+</div>
+
+<div class="fila">
+  <label>Horas de operación</label>
+  <input id="hropera_mb">
+  <span>h/mes</span>
+</div>
+
+<div class="fila">
+  <label>Costo energía</label>
+  <input id="costointe">
+  <span>$/kWh</span>
+</div>
+
+<h2>Características del equipo propuesto</h2>
+
+<div class="fila">
+  <label>Eficiencia del motor</label>
+  <input id="eficim">
+  <span>%</span>
+</div>
+
+<div class="fila">
+  <label>Eficiencia de la bomba</label>
+  <input id="eficib">
+  <span>%</span>
+</div>
+
+<div class="fila">
+  <label>Inversión</label>
+  <input id="inversion_mb">
+  <span>$</span>
+</div>
+</div>
+
+<!-- DERECHA -->
+<div class="panelResultados">
+
+<div id="resA">-</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<!-- ================= CALCULO B ================= -->
+
+<div id="modalcalcB" class="modal oculto">
+<div class="modal-content">
+
+<h1>Cálculo Motor</h1>
+<button onclick="calcularB()">Calcular</button>
+<button onclick="cerrarModalCalcB()">❌ Cerrar</button><br><br>
+<div class="panelCalculo">
+
+<!-- IZQUIERDA -->
+<div class="panelInputs">
+
+<h2>Datos de Placa Motor Actual</h2>
+
+<div class="fila">
+  <label>Potencia nominal</label>
+  <input id="potnom">
+  <span>HP</span>
+</div>
+
+<div class="fila">
+  <label>Número de polos</label>
+  <input id="npolos">
+  <span>-</span>
+</div>
+
+<div class="fila">
+  <label>Tensión nominal</label>
+  <input id="tnominal">
+  <span>Volts</span>
+</div>
+
+<div class="fila">
+  <label>Eficiencia nominal</label>
+  <input id="efinomi">
+  <span>%</span>
+</div>
+
+<div class="fila">
+  <label>Tipo</label>
+  <input id="tipo">
+  <span></span>
+</div>
+
+<small>(1 = Abierto, 2 = Cerrado, 3 = Sumergible)</small>
+
+<h2>Datos de Operación y Mantenimiento</h2>
+
+<div class="fila">
+  <label>Antigüedad</label>
+  <input id="antiguo">
+  <span>años</span>
+</div>
+
+<div class="fila">
+  <label>Rebobinados</label>
+  <input id="nrebo">
+  <span>-</span>
+</div>
+
+<div class="fila">
+  <label>Horas operación</label>
+  <input id="hropera_m">
+  <span>h/mes</span>
+</div>
+
+<div class="fila">
+  <label>Costo energía</label>
+  <input id="costoint">
+  <span>$/kWh</span>
+</div>
+
+<h2>Mediciones del motor</h2>
+
+<div class="fila-doble">
+  <label>Vab</label>
+  <input id="vab">
+  <span>V</span>
+
+  <label>Ia</label>
+  <input id="ia">
+  <span>A</span>
+</div>
+
+<div class="fila-doble">
+  <label>Vbc</label>
+  <input id="vbc">
+  <span>V</span>
+
+  <label>Ib</label>
+  <input id="ib">
+  <span>A</span>
+</div>
+
+<div class="fila-doble">
+  <label>Vca</label>
+  <input id="vca">
+  <span>V</span>
+
+  <label>Ic</label>
+  <input id="ic">
+  <span>A</span>
+</div>
+
+<div class="fila">
+  <label>Factor de potencia</label>
+  <input id="fp">
+  <span>%</span>
+</div>
+
+<h2>Datos de Placa de Motor Propuesto</h2>
+
+<div class="fila">
+  <label>Potencia nominal</label>
+  <input id="potnom_1">
+  <span>HP</span>
+</div>
+
+<div class="fila">
+  <label>Tensión nominal</label>
+  <input id="tnominal_1">
+  <span>Volts</span>
+</div>
+
+<div class="fila">
+  <label>Eficiencia</label>
+  <input id="efinomi_1">
+  <span>%</span>
+</div>
+
+<div class="fila">
+  <label>Inversión</label>
+  <input id="inversion_m">
+  <span>$</span>
+</div>
+</div>
+
+<!-- DERECHA -->
+ 
+<div class="panelResultados">
+
+<div id="resB">-</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<!-- ================= CALCULO C ================= -->
+
+<div id="modalcalcC" class="modal oculto">
+<div class="modal-content">
+
+ <h1>Bomba</h1>
+ <button onclick="calcularC()">Calcular</button>
+<button onclick="cerrarModalCalcC()">❌ Cerrar</button><br><br>
+<div class="panelCalculo">
+
+<!-- IZQUIERDA -->
+<div class="panelInputs">
+    <h2>Datos de entrada</h2>
+
+<div class="fila">
+  <label>Gasto</label>
+  <input id="gasto_4">
+  <span>lps</span>
+</div>
+
+<div class="fila">
+  <label>Nivel de succión</label>
+  <input id="nisuccion_4">
+  <span>m</span>
+</div>
+
+<div class="fila">
+  <label>Altura manómetro</label>
+  <input id="altmano_4">
+  <span>m</span>
+</div>
+
+<div class="fila">
+  <label>Presión descarga</label>
+  <input id="presidescar_4">
+  <span>kg/cm²</span>
+</div>
+
+<div class="fila">
+  <label>Potencia eléctrica</label>
+  <input id="potelec_4">
+  <span>kW</span>
+</div>
+
+<div class="fila">
+  <label>Eficiencia motor</label>
+  <input id="eficimotor_4">
+  <span>%</span>
+</div>
+
+<div class="fila">
+  <label>Horas operación</label>
+  <input id="hropera_4">
+  <span>h/mes</span>
+</div>
+
+<div class="fila">
+  <label>Costo energía</label>
+  <input id="costoenergi_4">
+  <span>$/kWh</span>
+</div>
+
+<h2>Características del equipo propuesto</h2>
+
+<div class="fila">
+  <label>Eficiencia bomba</label>
+  <input id="eficibom_4">
+  <span>%</span>
+</div>
+
+<div class="fila">
+  <label>Inversión</label>
+  <input id="inversion_4">
+  <span>$</span>
+</div>
+<!--vizualizar resultados en C-->
+</div>
+
+<!-- DERECHA -->
+<div class="panelResultados">
+
+
+<div id="resC">-</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<!-- ================= CALCULO D ================= -->
+<div id="modalcalcD" class="modal oculto">
+<div class="modal-content">
+
+<h1>Factor de Potencia</h1>
+<button onclick="calcularD()">Calcular</button>
+<button onclick="cerrarModalCalcD()">❌ Cerrar</button><br><br>
+<div class="panelCalculo">
+
+<!-- IZQUIERDA -->
+<div class="panelInputs">
+<h2>Descripción de la situación actual promedio mensual</h2>
+
+<div class="fila">
+  <label>Factor de potencia</label>
+  <input id="fact_pot5">
+  <span>%</span>
+</div>
+
+<div class="fila">
+  <label>Energía consumida</label>
+  <input id="ener_consum5">
+  <span>kWh/mes</span>
+</div>
+
+<div class="fila">
+  <label>Importe sin IVA</label>
+  <input id="import_iva">
+  <span>$/mes</span>
+</div>
+
+<div class="fila">
+  <label>Horas operación</label>
+  <input id="hropera_5">
+  <span>h/mes</span>
+</div>
+
+<h2>Banco de capacitores</h2>
+
+<div class="fila">
+  <label>Capacidad banco</label>
+  <input id="capa_capa">
+  <span>kVar</span>
+</div>
+
+<div class="fila">
+  <label>Costo banco</label>
+  <input id="costo_banco">
+  <span>$</span>
+</div>
+
+<h2>Factor de potencia recomendado</h2>
+
+<div class="fila">
+  <label>FP recomendado</label>
+  <input id="fact_potr">
+  <span>%</span>
+</div>
+
+
+<!--vizualizar resultados en D-->
+</div>
+
+<!-- DERECHA -->
+<div class="panelResultados">
+
+
+<div id="resD">-</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<!-- ================= CALCULO E ================= -->
+
+<div id="modalcalcE" class="modal oculto">
+<div class="modal-content">
+
+<h1>Cálculo Variador de Velocidad</h1>
+<button onclick="calcularE()">Calcular</button>
+<button onclick="cerrarModalCalcE()">❌ Cerrar</button><br><br>
+<div class="panelCalculo">
+
+<!-- IZQUIERDA -->
+<div class="panelInputs">
+<h2>Información de entrada</h2>
+
+<div class="fila">
+  <label>Nivel de succión</label>
+  <input id="nisuccion_6">
+  <span>m</span>
+</div>
+
+<div class="fila">
+  <label>Altura manómetro</label>
+  <input id="altmano_6">
+  <span>m</span>
+</div>
+
+<div class="fila">
+  <label>Días operación</label>
+  <input id="numdiapro">
+  <span>días/mes</span>
+</div>
+
+<div class="fila">
+  <label>Consumo energía</label>
+  <input id="consumenergi_6">
+  <span>kWh/mes</span>
+</div>
+
+<div class="fila">
+  <label>Costo energía</label>
+  <input id="costoenergi_6">
+  <span>$/kWh</span>
+</div>
+
+<h2>Condición 1</h2>
+
+<div class="fila">
+  <label>Presión</label>
+  <input id="presion1">
+  <span>kg/cm²</span>
+</div>
+
+<div class="fila">
+  <label>Caudal</label>
+  <input id="caudal1">
+  <span>lps</span>
+</div>
+
+<div class="fila">
+  <label>Duración</label>
+  <input id="dprom1">
+  <span>h/día</span>
+</div>
+
+<h2>Condición 2</h2>
+
+<div class="fila">
+  <label>Presión</label>
+  <input id="presion2">
+  <span>kg/cm²</span>
+</div>
+
+<div class="fila">
+  <label>Caudal</label>
+  <input id="caudal2">
+  <span>lps</span>
+</div>
+
+<div class="fila">
+  <label>Duración</label>
+  <input id="dprom2">
+  <span>h/día</span>
+</div>
+
+<h2>Condición 3</h2>
+
+<div class="fila">
+  <label>Presión</label>
+  <input id="presion3">
+  <span>kg/cm²</span>
+</div>
+
+<div class="fila">
+  <label>Caudal</label>
+  <input id="caudal3">
+  <span>lps</span>
+</div>
+
+<div class="fila">
+  <label>Duración</label>
+  <input id="dprom3">
+  <span>h/día</span>
+</div>
+
+<h2>Propuesta</h2>
+
+<div class="fila">
+  <label>Presión objetivo</label>
+  <input id="presionvv">
+  <span>kg/cm²</span>
+</div>
+
+<div class="fila">
+  <label>Capacidad VV</label>
+  <input id="capacidadvv">
+  <span>HP</span>
+</div>
+
+<div class="fila">
+  <label>Inversión</label>
+  <input id="inversion_6">
+  <span>$</span>
+</div>
+
+</div>
+
+<!-- DERECHA -->
+<div class="panelResultados">
+
+
+<div id="resE">-</div>
+
+</div>
+
+</div>
+</div>
+</div>
+
+<script>
+// ====== DOM ======
+const pozoNombre = document.getElementById("pozoNombre");
+const modalPozo = document.getElementById("modalPozo");
+const modalNuevo = document.getElementById("modalNuevo");
+const modalBuscador = document.getElementById("modalBuscador");
+
+const listaProyectos = document.getElementById("listaProyectos");
+const filtro = document.getElementById("filtro");
+
+const folio = document.getElementById("folio");
+const proyecto = document.getElementById("proyecto");
+const municipio = document.getElementById("municipio");
+const responsable = document.getElementById("responsable");
+
+const nuevoNombre = document.getElementById("nuevoNombre");
+const nuevoRespon = document.getElementById("nuevoRespon");
+const nuevoEstado = document.getElementById("nuevoEstado");
+const nuevoMunicipio = document.getElementById("nuevoMunicipio");
+const nuevoFecha = document.getElementById("nuevoFecha");
+const tituloModal = document.getElementById("tituloModal");
+
+const resultadoTarifaCompleto = document.getElementById("resultadoTarifaCompleto");
+const resA = document.getElementById("resA");
+const resB = document.getElementById("resB");
+const resC = document.getElementById("resC");
+const resD = document.getElementById("resD");
+const resE = document.getElementById("resE");
+
+// tabla
+const tablaPozos = document.getElementById("tablaPozos");
+
+
+function abrirPozo(){
+
+  if(!proyectoActivo){
+    alert("Selecciona un proyecto primero");
+    return;
+  }
+
+  // limpiar inputs
+  pozoNombre.value = "";
+  modalPozo.classList.remove("oculto");
+}
+
+function cerrarPozo(){
+  modalPozo.classList.add("oculto");
+}
+
+
+function editarProyecto(i){
+
+  const p = proyectos[i];
+
+  editandoIndex = i;
+  tituloModal.innerText = "Editar Proyecto";
+  nuevoNombre.value = p.proyecto;
+  nuevoRespon.value = p.responsable|| "";
+  nuevoEstado.value = p.estado || "";
+  nuevoMunicipio.value = p.municipio;
+  nuevoFecha.value = p.fecha;
+
+  modalNuevo.classList.remove("oculto");
+}
+
+function editarPozo(i){
+
+  const pozo = proyectoActivo.pozos[i]; // 👈 correcto
+
+  // guardar índice
+  pozoEditando = i;
+
+  // cargar datos en inputs
+  pozoNombre.value = pozo.nombre;
+
+  // cambiar título
+  modalPozo.querySelector("h2").innerText = "Editar Pozo";
+
+  // abrir modal
+  modalPozo.classList.remove("oculto");
+}
+
+let pozoEditando = null;
+
+function guardarPozo(){
+
+  const nombre = pozoNombre.value;
+  if(!nombre){
+    alert("Completa los datos");
+    return;
+  }
+  
+  if(pozoEditando !== null){
+
+    // ✏️ editar
+    proyectoActivo.pozos[pozoEditando].nombre = nombre;
+
+    pozoEditando = null;
+
+  }else{
+
+    // ➕ nuevo
+    proyectoActivo.pozos.push({
+      nombre,
+      motor:null,
+      bomba:null
+    });
+
+  }
+
+  cargarPozos(proyectoActivo.pozos);
+  guardarLocal();
+  cerrarPozo();
+}
+
+function abrirNuevo(){
+
+  // 🔥 quitar modo edición
+  editandoIndex = null;
+
+  tituloModal.innerText = "Nuevo Proyecto";
+
+  // 🧼 limpiar inputs del modal
+  nuevoNombre.value = "";
+  nuevoRespon.value = "";
+  nuevoEstado.value = "";
+  nuevoMunicipio.value = "";
+  nuevoFecha.value = "";
+
+  // 🔥 LIMPIAR PROYECTO ACTIVO EN PANTALLA
+  proyectoActivo = null;
+
+  document.getElementById("proyecto").innerText = "";
+  document.getElementById("municipio").innerText = "";
+  document.getElementById("responsable").innerText = "";
+
+  // 🔥 limpiar tabla
+  tablaPozos.querySelector("tbody").innerHTML = "";
+
+  // 🔥 limpiar totales
+  document.getElementById("totA").innerText = "";
+  document.getElementById("totB").innerText = "";
+  document.getElementById("totC").innerText = "";
+  document.getElementById("totD").innerText = "";
+  document.getElementById("totE").innerText = "";
+  document.getElementById("totTarifa").innerText = "";
+  document.getElementById("totAhorro").innerText = "";
+  document.getElementById("totInversion").innerText = "";
+  document.getElementById("totRetorno").innerText = "";
+
+  // abrir modal
+  modalNuevo.classList.remove("oculto");
+}
+
+function cerrarNuevo(){
+  modalNuevo.classList.add("oculto");
+}
+
+function guardarNuevo(){
+
+  const nombre = nuevoNombre.value;
+  const responsable = nuevoRespon.value;
+  const estado = nuevoEstado.value;
+  const municipio = nuevoMunicipio.value;
+  const fecha = nuevoFecha.value;
+
+  if(!nombre || !municipio){
+    alert("Completa los datos");
+    return;
+  }
+
+  if(editandoIndex !== null){
+
+    proyectos[editandoIndex].proyecto = nombre;
+    proyectos[editandoIndex].responsable = responsable;
+    proyectos[editandoIndex].estado = estado;
+    proyectos[editandoIndex].municipio = municipio;
+    proyectos[editandoIndex].fecha = fecha;
+
+    editandoIndex = null;
+
+    alert("✅ Proyecto actualizado");
+
+  }else{
+
+   const ultimoFolio = proyectos.length > 0 
+  ? Math.max(...proyectos.map(p => p.folio)) 
+  : 0;
+
+const nuevo = {
+  folio: ultimoFolio + 1,
+  proyecto: nombre,
+  responsable: responsable,
+  municipio: municipio,
+  estado: estado,
+  fecha: fecha,
+  pozos: []
+};
+
+    proyectos.push(nuevo);
+
+    // 🔥 LIMPIAR CONTEXTO
+    proyectoActivo = null;
+    tablaPozos.querySelector("tbody").innerHTML = "";
+
+    alert("✅ Proyecto guardado");
+  }
+
+  nuevoNombre.value = "";
+  nuevoRespon.value = "";
+  nuevoEstado.value = "";
+  nuevoMunicipio.value = "";
+  nuevoFecha.value = "";
+
+  cerrarNuevo();
+  cargarProyectos();
+  guardarLocal();
+}
+
+// ================== DATA ==================
+let proyectos = JSON.parse(localStorage.getItem("proyectos")) || [];
+
+function guardarLocal(){
+  localStorage.setItem("proyectos", JSON.stringify(proyectos));
+}
+
+let proyectoActivo = null;
+let editandoIndex = null;
+
+// ================== MODAL ==================
+function abrirBuscador(){
+  modalBuscador.classList.remove("oculto");
+  cargarProyectos();
+}
+
+function cerrarBuscador(){
+  modalBuscador.classList.add("oculto");
+
+   // 🔥 limpiar input
+  filtro.value = "";
+
+  // 🔥 recargar lista completa
+  cargarProyectos();
+}
+
+function cargarProyectos(){
+
+  let html = "";
+
+  proyectos.forEach((p, i) => {
+
+    html += `
+      <tr>
+        <td onclick="seleccionarProyecto(${i})">${p.folio}</td>
+        <td onclick="seleccionarProyecto(${i})">${p.responsable || "-"}</td>
+        <td onclick="seleccionarProyecto(${i})">${p.estado || "-"}</td>
+        <td onclick="seleccionarProyecto(${i})">${p.proyecto}</td>
+        <td onclick="seleccionarProyecto(${i})">${p.municipio}</td>
+        <td onclick="seleccionarProyecto(${i})">${p.fecha}</td>
+        <td class="col-eliminar">
+  <button onclick="editarProyecto(${i})">✏️</button>
+  </td>
+<td class="col-eliminar">
+  <button onclick="eliminarProyecto(${i})">🗑️</button>
+</td>
+      </tr>
+    `;
+
+  });
+
+  listaProyectos.innerHTML = html;
+}
+
+function cargarInputs(inputs){
+
+  for(let key in inputs){
+    const el = document.getElementById(key);
+    if(el){
+      el.value = inputs[key];
+    }
+  }
+
+}
+// ================== FILTRO ==================
+function filtrar(){
+
+  const texto = filtro.value.toLowerCase();
+
+  let html = "";
+
+  proyectos.forEach((p, i) => {
+
+    if(
+      p.proyecto.toLowerCase().includes(texto) ||
+      p.municipio.toLowerCase().includes(texto)
+    ){
+      html += `
+        <tr>
+        <td onclick="seleccionarProyecto(${i})">${p.folio}</td>
+        <td onclick="seleccionarProyecto(${i})">${p.responsable}</td>
+        <td onclick="seleccionarProyecto(${i})">${p.estado}</td>
+        <td onclick="seleccionarProyecto(${i})">${p.proyecto}</td>
+        <td onclick="seleccionarProyecto(${i})">${p.municipio}</td>
+        <td onclick="seleccionarProyecto(${i})">${p.fecha}</td>
+        <td class="col-eliminar">
+  <button onclick="editarProyecto(${i})">✏️</button>
+  </td>
+<td class="col-eliminar">
+  <button onclick="eliminarProyecto(${i})">🗑️</button>
+</td>
+      </tr>
+      `;
+    }
+
+  });
+
+  listaProyectos.innerHTML = html;
+}
+
+// ================== SELECCION ==================
+function seleccionarProyecto(i){
+
+  const p = proyectos[i];
+  proyectoActivo = p;
+
+  folio.value = p.folio;
+  proyecto.innerText = p.proyecto;
+  municipio.innerText = p.municipio;
+  responsable.innerText = p.responsable || "-";
+
+  cargarPozos(p.pozos);
+
+  modalBuscador.classList.add("oculto");
+}
+
+// ================== TABLA ==================
+function cargarPozos(pozos){
+  let totA=0, totB=0, totC=0, totD=0, totE=0, totTarifa=0;
+  let totAhorro=0, totInversion=0;
+  let html = "";
+
+  pozos.forEach((pozo, i) => {
+
+    const inversionTotal =
+      (pozo.calcA?.inputs?.inversion_mb || 0) +
+      (pozo.calcB?.inputs?.inversion_m || 0) +
+      (pozo.calcC?.inputs?.inversion_4 || 0) +
+      (pozo.calcD?.inputs?.costo_banco || 0) +
+      (pozo.calcE?.inputs?.inversion_6 || 0) +
+      (pozo.calcTarifa?.inversion || 0);
+
+    const ahorroTotal =
+      (pozo.calcA?.ahorro || 0) +
+      (pozo.calcB?.ahorros || 0) +
+      (pozo.calcC?.ahorro_4 || 0) +
+      (pozo.calcD?.ahorro_5 || 0) +
+      (pozo.calcE?.ahorro_6 || 0) +
+      (pozo.calcTarifa?.ahorroMejor || 0);
+
+    const retorno = ahorroTotal > 0 ? inversionTotal / ahorroTotal : 0;
+
+    html += `
+      <tr>
+        <td>${pozo.nombre}</td>
+
+       <td class="accion 
+          ${(pozo.calcB || pozo.calcC) ? 'bloqueado' : ''} 
+          ${pozo.calcA ? 'ok' : ''}" 
+          onclick="${(pozo.calcB || pozo.calcC) ? '' : `irCalcA(${i})`}">
+          $ ${(pozo.calcA?.ahorro || 0).toLocaleString('es-MX',{minimumFractionDigits:2})}
+        </td>
+
+        <td class="accion 
+          ${pozo.calcA ? 'bloqueado' : ''} 
+          ${pozo.calcB ? 'ok' : ''}" 
+          onclick="${pozo.calcA ? '' : `irCalcB(${i})`}">
+          $ ${(pozo.calcB?.ahorros || 0).toLocaleString('es-MX',{minimumFractionDigits:2})}
+        </td>
+
+        <td class="accion 
+          ${pozo.calcA ? 'bloqueado' : ''} 
+          ${pozo.calcC ? 'ok' : ''}" 
+          onclick="${pozo.calcA ? '' : `irCalcC(${i})`}">
+          $ ${(pozo.calcC?.ahorro_4 || 0).toLocaleString('es-MX',{minimumFractionDigits:2})}
+        </td>
+
+        <td class="accion ${pozo.calcD ? 'ok' : ''}" onclick="irCalcD(${i})">
+            $ ${(pozo.calcD?.ahorro_5 || 0).toLocaleString('es-MX',{minimumFractionDigits:2})}
+        </td>
+
+        <td class="accion ${pozo.calcE ? 'ok' : ''}" onclick="irCalcE(${i})">
+            $ ${(pozo.calcE?.ahorro_6 || 0).toLocaleString('es-MX',{minimumFractionDigits:2})}
+        </td>
+
+        <td class="accion ${pozo.calcTarifa ? 'ok' : ''}" onclick="irCalcTarifa(${i})">
+             $ ${(pozo.calcTarifa?.ahorroMejor || 0).toLocaleString('es-MX',{minimumFractionDigits:2})}
+        </td>
+
+<td class="ok">
+  $ ${(
+    (pozo.calcA?.ahorro || 0) +
+    (pozo.calcB?.ahorros || 0) +
+    (pozo.calcC?.ahorro_4 || 0) +
+    (pozo.calcD?.ahorro_5 || 0) +
+    (pozo.calcE?.ahorro_6 || 0) +
+    (pozo.calcTarifa?.ahorroMejor || 0)
+  ).toLocaleString('es-MX',{minimumFractionDigits:2})}
+</td>
+
+<td class="ok">
+  $ ${inversionTotal.toLocaleString('es-MX',{minimumFractionDigits:2})}
+</td>
+
+<td class="${retorno < 12 ? 'positivo' : retorno < 24 ? '' : 'negativo'}">
+  ${retorno === 0 ? "-" : retorno.toFixed(2) + " meses"}
+</td>
+
+<td class="col-eliminar">
+  <button onclick="editarPozo(${i})">✏️</button>
+  </td>
+<td class="col-eliminar">
+  <button onclick="eliminarPozo(${i})">🗑️</button>
+</td>
+      </tr>
+    `;
+totA += pozo.calcA?.ahorro || 0;
+totB += pozo.calcB?.ahorros || 0;
+totC += pozo.calcC?.ahorro_4 || 0;
+totD += pozo.calcD?.ahorro_5 || 0;
+totE += pozo.calcE?.ahorro_6 || 0;
+totTarifa += pozo.calcTarifa?.ahorroMejor || 0;
+
+totAhorro += ahorroTotal;
+totInversion += inversionTotal;
+  });
+totA = totA || 0;
+
+document.getElementById("totA").innerText = "$ " + totA.toLocaleString('es-MX',{minimumFractionDigits:2});
+document.getElementById("totB").innerText = "$ " + totB.toLocaleString('es-MX',{minimumFractionDigits:2});
+document.getElementById("totC").innerText = "$ " + totC.toLocaleString('es-MX',{minimumFractionDigits:2});
+document.getElementById("totD").innerText = "$ " + totD.toLocaleString('es-MX',{minimumFractionDigits:2});
+document.getElementById("totE").innerText = "$ " + totE.toLocaleString('es-MX',{minimumFractionDigits:2});
+document.getElementById("totTarifa").innerText = "$ " + totTarifa.toLocaleString('es-MX',{minimumFractionDigits:2});
+
+document.getElementById("totAhorro").innerText = "$ " + totAhorro.toLocaleString('es-MX',{minimumFractionDigits:2});
+document.getElementById("totInversion").innerText = "$ " + totInversion.toLocaleString('es-MX',{minimumFractionDigits:2});
+  tablaPozos.querySelector("tbody").innerHTML = html;
+  
+}
+
+let pozoActivo = null;
+
+function irCalcA(i){
+
+   const pozo = proyectoActivo.pozos[i];
+
+  if(pozo.calcB || pozo.calcC){
+    alert("⚠️ No puedes usar Motor-Bomba si ya usaste Motor o Bomba");
+    return;
+  }
+
+  pozoActivo = i;
+  limpiarCamposCalculos();
+  abrirCalcA();
+  cargarResultados();
+
+  const calc = proyectoActivo.pozos[i].calcA;
+
+  if(calc){
+    setTimeout(()=>{
+      activarSemaforo(calc.eficiencia_electro);
+    },50);
+  }
+}
+
+function irCalcB(i){
+
+  const pozo = proyectoActivo.pozos[i];
+
+  if(pozo.calcA){
+    alert("⚠️ No puedes usar Motor si ya aplicaste Motor-Bomba");
+    return;
+  }
+
+  pozoActivo = i;
+  limpiarCamposCalculos();
+  abrirCalcB();
+  cargarResultados();
+}
+
+function irCalcC(i){
+
+  const pozo = proyectoActivo.pozos[i];
+
+  if(pozo.calcA){
+    alert("⚠️ No puedes usar Bomba si ya aplicaste Motor-Bomba");
+    return;
+  }
+
+  pozoActivo = i;
+  limpiarCamposCalculos();
+  abrirCalcC();
+  cargarResultados();
+}
+
+function irCalcD(i){
+  pozoActivo = i;
+  limpiarCamposCalculos();
+  abrirCalcD();
+  cargarResultados();
+}
+
+function irCalcE(i){
+  pozoActivo = i;
+  limpiarCamposCalculos();
+  abrirCalcE();
+  cargarResultados();
+}
+
+function irCalcTarifa(i){
+  pozoActivo = i;
+  limpiarCamposCalculos();
+  abrirCalcTarifa();
+  cargarResultados();
+}
+
+function verResultado(i){
+
+   const p = proyectoActivo.pozos[i];
+
+  let total = 0;
+
+  if(p.calcA) total += p.calcA.ahorro || 0;
+  if(p.calcB) total += p.calcB.ahorros || 0;
+  if(p.calcC) total += p.calcC.ahorro_4 || 0;
+  if(p.calcD) total += p.calcD.ahorro_5 || 0;
+  if(p.calcE) total += p.calcE.ahorro_6 || 0;
+  if(p.calcTarifa) total += p.calcTarifa.ahorroMejor || 0;
+
+  alert("💰 Total ahorro mensual: $" + total.toLocaleString());
+}
+
+// ================== FUNCIONES PARA LOS FORMULARIOS O BOTONES ==================
+function abrirMotorBomba(i){
+  alert("Abrir cálculo Motor-Bomba del pozo " + i);
+}
+
+function abrirMotor(i){
+  alert("Abrir cálculo Motor del pozo " + i);
+}
+
+function abrirBomba(i){
+  alert("Abrir cálculo Bomba del pozo " + i);
+}
+
+
+// ================== GUARDAR ==================
+function guardarCambio(i, campo, valor){
+
+  if(!proyectoActivo) return;
+
+  if(campo === "nombre") proyectoActivo.pozos[i].nombre = valor;
+  if(campo === "motor") proyectoActivo.pozos[i].motor = Number(valor);
+  if(campo === "bomba") proyectoActivo.pozos[i].bomba = Number(valor);
+
+  guardarLocal();
+}
+
+function eliminarPozo(i){
+
+  if(!confirm("¿Eliminar este pozo?")) return;
+
+  proyectoActivo.pozos.splice(i,1);
+
+  cargarPozos(proyectoActivo.pozos);
+  guardarLocal();
+}
+
+
+
+function buscarPorFolio(e){
+
+  if(e.key !== "Enter") return;
+
+  const valor = folio.value.trim();
+
+  if(!valor){
+    alert("Ingresa un folio");
+    return;
+  }
+
+  const index = proyectos.findIndex(p => p.folio == valor);
+
+  if(index === -1){
+    alert("No existe ese folio");
+    return;
+  }
+
+  // 🔥 cargar proyecto
+  seleccionarProyecto(index);
+  proyecto.focus();
+  folio.value = "";
+  
+}
+
+
+
+function calcularTarifa(){
+
+
+const consumo_kwh = Number(document.getElementById("consumo_kwh").value)|| 0; 
+const costo_total = Number(document.getElementById("costo_total").value)|| 0; 
+const demanda = Number(document.getElementById("demanda_kw").value)|| 0;
+const horas_mes = Number(document.getElementById("horas_mes").value)|| 0;
+
+const tarifa_om = Number(document.getElementById("tarifa_om").value)|| 0;
+const tarifa_hm = Number(document.getElementById("tarifa_hm").value)|| 0;
+
+/*if(consumo_kwh === 0){
+alert("Ingresa el consumo mensual");
+return;
+}*/
+// estimación automática de inversión
+
+let transformador = 0;
+
+if(demanda <= 40){
+transformador = 120000;
+}
+else if(demanda <= 80){
+transformador = 180000;
+}
+else if(demanda <= 150){
+transformador = 250000;
+}
+else{
+transformador = 350000;
+}
+
+const capacitores = demanda * 300;
+const instalacion = transformador * 0.25;
+
+const inversion = transformador + capacitores + instalacion;
+
+// tarifa actual
+const tarifaActual = consumo_kwh > 0 ? costo_total / consumo_kwh : 0;
+
+
+// costos con otras tarifas
+const costoOM = consumo_kwh * tarifa_om;
+const costoHM = consumo_kwh * tarifa_hm;
+
+
+// ahorro
+const ahorroOM = costo_total - costoOM;
+const ahorroHM = costo_total - costoHM;
+
+
+// recuperación
+const psriOM = ahorroOM>0 ? inversion/ahorroOM : 0;
+const psriHM = ahorroHM>0 ? inversion/ahorroHM : 0;
+
+// detectar tipo de tarifa aproximada
+let tipoTarifa = "";
+
+if(tarifaActual > 2.3){
+tipoTarifa = "Tarifa cara (probablemente Tarifa 6 o similar)";
+}else if(tarifaActual > 1.8){
+tipoTarifa = "Tarifa media";
+}else{
+tipoTarifa = "Tarifa eficiente";
+}
+
+
+// elegir mejor tarifa
+let mejorTarifa = "";
+let ahorroMejor = 0;
+
+if(ahorroOM > ahorroHM){
+mejorTarifa = "OM";
+ahorroMejor = ahorroOM;
+}else{
+mejorTarifa = "HM";
+ahorroMejor = ahorroHM;
+}
+
+
+// recomendaciones
+let recomendaciones = "";
+
+if(tarifaActual > 2.3){
+
+recomendaciones += "• Analizar cambio a tarifa OM o HM.<br>";
+recomendaciones += "• Instalar subestación y transformador para media tensión.<br>";
+
+}
+
+if(demanda > 80){
+
+recomendaciones += "• Revisar arranque del motor para reducir demanda.<br>";
+
+}
+
+recomendaciones += "• Revisar eficiencia de bomba y motor.<br>";
+recomendaciones += "• Analizar instalación de variador de velocidad.<br>";
+recomendaciones += "• Corregir factor de potencia con banco de capacitores.<br>";
+recomendaciones += "• Reducir horas de operación en horario punta.<br>";
+
+
+proyectoActivo.pozos[pozoActivo].calcTarifa = {
+
+inputs:{
+consumo_kwh,
+costo_total,
+demanda_kw: demanda,
+horas_mes,
+tarifa_om,
+tarifa_hm
+},
+
+
+tarifaActual,
+costoOM,
+costoHM,
+ahorroOM,
+ahorroHM,
+psriOM,
+psriHM,
+transformador,
+capacitores,
+instalacion,
+inversion,
+tipoTarifa,
+mejorTarifa,
+ahorroMejor
+
+};
+
+
+// RESULTADO PRINCIPAL
+resultadoTarifaCompleto.innerHTML = `
+
+<h3>Datos Actuales</h3>
+
+Tarifa actual estimada = <b> ${tarifaActual.toFixed(2)} [$/kWh]</b><br>
+Costo actual = <b>$ ${costo_total.toLocaleString()}</b><br>
+Clasificación = <b>${tipoTarifa}</b><br><br>
+
+<h3>Costo estimado para tarifa OM</h3>
+
+Costo OM = <b>$ ${costoOM.toLocaleString()}</b><br>
+Ahorro OM = <b>$ ${ahorroOM.toLocaleString()}</b><br><br>
+
+<h3>Costo estimado para tarifa HM</h3>
+
+Costo HM = <b>$ ${costoHM.toLocaleString()}</b><br>
+Ahorro HM = <b>$ ${ahorroHM.toLocaleString()}</b><br><br>
+
+
+<h3>Inversion estimada para cambio de tarifa en instalciones electricas</h3>
+
+Transformador estimado = <b>$ ${transformador.toLocaleString()}</b><br>
+Banco de capacitores = <b>$ ${capacitores.toLocaleString()}</b><br>
+Instalación eléctrica = <b>$ ${instalacion.toLocaleString()}</b><br>
+Inversión estimada = <b>$ ${inversion.toLocaleString()}</b><br><br>
+
+
+<h3>Recuperacion de Inversion</h3>
+
+PSRI OM = <b>${psriOM.toFixed(2)} [meses]</b><br>
+PSRI HM = <b>${psriHM.toFixed(2)} [meses]</b><br>
+
+<h3>Recomendación de Tarifa</h3>
+
+La tarifa más conveniente es: <b>${mejorTarifa}</b><br>
+Ahorro estimado mensual: <b>$ ${ahorroMejor.toLocaleString('es-MX',{minimumFractionDigits:2})}</b><br><br>
+
+<h3>Justificación</h3>
+
+El costo actual de energía es <b>${tarifaActual.toFixed(2)} $/kWh</b>, 
+lo cual indica que el sistema opera con una tarifa relativamente alta 
+en comparación con tarifas de media tensión como OM o HM.<br><br>
+
+La tarifa <b>${mejorTarifa}</b> reduce el costo de energía debido a menores cargos 
+por kWh y mejores condiciones tarifarias para sistemas de bombeo.<br><br>
+
+
+<h3>Medidas adicionales para reducir el costo eléctrico</h3>
+
+${recomendaciones}
+
+`;
+actualizarPozos();
+guardarLocal();
+
+}
+
+// ================= CALCULOS =================
+function calcularA(){
+    const gasto = Number(document.getElementById("gasto").value)|| 0; 
+    const nisuccion = Number(document.getElementById("nisuccion").value)|| 0;
+    const alturaman = Number(document.getElementById("alturaman").value)|| 0;
+    const presiondes = Number(document.getElementById("presiondes").value)|| 0;
+    const potelc = Number(document.getElementById("potelc").value)|| 0;
+    const hropera_mb = Number(document.getElementById("hropera_mb").value)|| 0;
+    const costointe = Number(document.getElementById("costointe").value)|| 0;
+    const eficim = Number(document.getElementById("eficim").value)|| 0;
+    const eficib = Number(document.getElementById("eficib").value)|| 0;
+    const inversion_mb = Number(document.getElementById("inversion_mb").value)|| 0;
+
+if (!gasto || !nisuccion || !alturaman || !presiondes || !potelc || !hropera_mb || !costointe || !eficim || !eficib || !inversion_mb) {
+  alert("Completa todos los datos del cálculo");
+  return;
+  }
+        
+
+  //Formulas de A
+  
+    const eficiencia_electro = (((((nisuccion+alturaman+presiondes*10)*1.01) *gasto*9.81/100)/potelc)*10)  || 0;
+    const consumo_energia = (potelc*hropera_mb);
+    const fact_elect = (consumo_energia*costointe);
+    const gasto_1 = (gasto);
+    const carga = ((nisuccion+alturaman+presiondes*10)*1.01);
+    const eficiencia_electro_1= ((eficim*eficib/1.09)/100);
+    const pot_deman= (potelc*eficiencia_electro/eficiencia_electro_1) || 0;
+    const consumo_energia_1 = (pot_deman*hropera_mb) || 0;
+    const fact_elect_1 = (consumo_energia_1*costointe) || 0;
+    const ahorro = (fact_elect-fact_elect_1) || 0;
+    const psri = (inversion_mb/ahorro) || 0;
+
+
+  proyectoActivo.pozos[pozoActivo].calcA={
+    inputs:{
+    gasto,
+    nisuccion, 
+    alturaman, 
+    presiondes,
+    potelc, 
+    hropera_mb, 
+    costointe, 
+    eficim, 
+    eficib, 
+    inversion_mb 
+},
+
+    eficiencia_electro,
+    consumo_energia,
+    fact_elect,
+    gasto_1,
+    carga,
+    eficiencia_electro_1,
+    pot_deman,
+    consumo_energia_1,
+    fact_elect_1,
+    ahorro,
+    psri
+    };
+
+   resA.innerHTML = `
+<h3> Situación Actual</h3>
+
+<div class="fila-semaforo">
+  Eficiencia electromecánica =<b>${eficiencia_electro.toFixed(2)} [%]</b>
+  <span class="semaforo" id="semaforoA_calc"></span>
+</div>
+    Consumo de energía = <b>${consumo_energia.toLocaleString('es-MX',{minimumFractionDigits:2})} [kWh/mes]</b><br>
+    Facturación eléctrica = <b>${fact_elect.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+
+<h3>Especificación del equipo a proponer</h3>
+    Gasto = <b>${gasto_1.toLocaleString('es-MX',{minimumFractionDigits:2})} [Ips]</b><br>
+    Carga = <b>${carga.toLocaleString('es-MX',{minimumFractionDigits:2})} [mca]</b><br>
+
+<h3> Sistema propuesto</h3>
+    Eficiencia electromecánica = <b>${eficiencia_electro_1.toLocaleString('es-MX',{minimumFractionDigits:2})} [%]</b><br>
+    Potencia demandada = <b>${pot_deman.toLocaleString('es-MX',{minimumFractionDigits:2})} [kW]</b><br>
+    Consumo de energía = <b>${consumo_energia_1.toLocaleString('es-MX',{minimumFractionDigits:2})} [kWh/mes]</b><br>
+    Facturación eléctrica = <b>${fact_elect_1.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+
+<h3> Evaluacion economica</h3>
+    Ahorros = <b>${ahorro.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+    PSRI = <b>${psri.toLocaleString('es-MX',{minimumFractionDigits:2})} [meses]</b><br>
+
+  `;
+  
+  actualizarPozos();
+  guardarLocal();
+ activarSemaforo(eficiencia_electro);
+  
+}
+
+function calcularB(){
+    const potnom = Number(document.getElementById("potnom").value);
+    const npolos = Number(document.getElementById("npolos").value);
+    const tnominal = Number(document.getElementById("tnominal").value);
+    const efinomi = Number(document.getElementById("efinomi").value);
+    const tipo = Number(document.getElementById("tipo").value);    
+    const antiguo = Number(document.getElementById("antiguo").value);
+    const nrebo = Number(document.getElementById("nrebo").value);
+    const hropera_m = Number(document.getElementById("hropera_m").value);
+    const costoint = Number(document.getElementById("costoint").value);
+    const vab = Number(document.getElementById("vab").value);
+    const ia = Number(document.getElementById("ia").value);
+    const vbc = Number(document.getElementById("vbc").value);
+    const ib = Number(document.getElementById("ib").value);
+    const vca = Number(document.getElementById("vca").value);    
+    const ic = Number(document.getElementById("ic").value);    
+    const fp = Number(document.getElementById("fp").value);
+    const potnom_1 = Number(document.getElementById("potnom_1").value);
+    const tnominal_1 = Number(document.getElementById("tnominal_1").value);
+    const efinomi_1 = Number(document.getElementById("efinomi_1").value);
+    const inversion_m = Number(document.getElementById("inversion_m").value);
+   
+
+ if (!potnom || !npolos || !tnominal || !efinomi || !tipo || !antiguo || !nrebo || !hropera_m || !costoint || !vab || !ia || !vbc || !ib || !vca || !ic ||!fp || !potnom_1 || !tnominal_1 || !efinomi_1 || !inversion_m) {
+        alert("Completa todos los datos del cálculo");
+        return;
+    }
+
+
+//Formulas de B
+
+    const pot_elec_dem = ((1.732*((vab+vbc+vca)/3))*((ia+ib+ic)/3)*fp/100000)|| 0; 
+    const pot_mec_entr = ((pot_elec_dem*92.5/0.746)/100)|| 0; 
+    const fact_carga = ((pot_mec_entr/potnom)*100)|| 0; 
+    const consum_energia = (pot_elec_dem*hropera_m)|| 0; 
+    const fact_elec = (consum_energia*costoint)|| 0; 
+    const pot_elec_dem_1 = (((pot_mec_entr*0.746)/efinomi_1)*100)|| 0; 
+    const fac_carga = ((pot_mec_entr/potnom_1)*100)|| 0; 
+    const consum_energia_1 = (pot_elec_dem_1*hropera_m)|| 0; 
+    const fact_elec_1 = (consum_energia_1*costoint)|| 0; 
+    const ahorros = (fact_elec-fact_elec_1)|| 0; 
+    const PSRI_1 = (inversion_m/ahorros)|| 0; 
+    const prome = ((vab+vbc+vca)/3)|| 0; 
+    const desb_volt = (Math.max(
+    (Math.max(vab,vbc,vca) - prome),
+    (prome - Math.min(vab,vbc,vca))
+) / prome) * 100|| 0; 
+
+const dif_volt = ((prome - tnominal) / tnominal) * 100|| 0; 
+    const fe5= efinomi/100|| 0; 
+let resultado;
+
+if (fe5 > 0) {
+    resultado = fe5;
+} else {
+    let calculoPolinomio = 0;
+
+    if (tipo === 1) {
+        if (npolos === 2) calculoPolinomio = -3.010904e-13 * Math.pow(potnom, 6) + 1.821974e-10 * Math.pow(potnom, 5) - 4.251047e-8 * Math.pow(potnom, 4) + 4.849487e-6 * Math.pow(potnom, 3) - 0.0002840731 * Math.pow(potnom, 2) + 0.008423982 * potnom + 0.7980631;
+        if (npolos === 4) calculoPolinomio = -9.693259e-14 * Math.pow(potnom, 6) + 6.524909e-11 * Math.pow(potnom, 5) - 1.748172e-8 * Math.pow(potnom, 4) + 2.372755e-6 * Math.pow(potnom, 3) - 0.0001716121 * Math.pow(potnom, 2) + 0.006530304 * potnom + 0.8061832;
+        if (npolos === 6) calculoPolinomio = -1.139722e-13 * Math.pow(potnom, 6) + 7.146758e-11 * Math.pow(potnom, 5) - 1.779195e-8 * Math.pow(potnom, 4) + 2.261833e-6 * Math.pow(potnom, 3) - 0.0001565013 * Math.pow(potnom, 2) + 0.005866245 * potnom + 0.8156524;
+        if (npolos === 8) calculoPolinomio = -6.584612e-14 * Math.pow(potnom, 6) + 4.794779e-11 * Math.pow(potnom, 5) - 1.36582e-8 * Math.pow(potnom, 4) + 1.924553e-6 * Math.pow(potnom, 3) - 0.0001416707 * Math.pow(potnom, 2) + 0.005614563 * potnom + 0.8067256;
+    } 
+    else if (tipo === 2) {
+        if (npolos === 2) calculoPolinomio = -1.176186e-13 * Math.pow(potnom, 6) + 7.627683e-11 * Math.pow(potnom, 5) - 1.926077e-8 * Math.pow(potnom, 4) + 2.383791e-6 * Math.pow(potnom, 3) - 0.0001500834 * Math.pow(potnom, 2) + 0.004830706 * potnom + 0.8338769;
+        if (npolos === 4) calculoPolinomio = -6.767996e-14 * Math.pow(potnom, 6) + 4.089531e-11 * Math.pow(potnom, 5) - 9.823405e-9 * Math.pow(potnom, 4) + 1.235157e-6 * Math.pow(potnom, 3) - 9.054057e-5 * Math.pow(potnom, 2) + 0.004024509 * potnom + 0.8406433;
+        if (npolos === 6) calculoPolinomio = -8.226959e-14 * Math.pow(potnom, 6) + 5.334493e-11 * Math.pow(potnom, 5) - 1.36313e-8 * Math.pow(potnom, 4) + 1.751346e-6 * Math.pow(potnom, 3) - 0.000120845 * Math.pow(potnom, 2) + 0.004676787 * potnom + 0.8283186;
+        if (npolos === 8) calculoPolinomio = -2.799043e-14 * Math.pow(potnom, 6) + 2.631361e-11 * Math.pow(potnom, 5) - 8.974366e-9 * Math.pow(potnom, 4) + 1.456302e-6 * Math.pow(potnom, 3) - 0.0001205714 * Math.pow(potnom, 2) + 0.005164864 * potnom + 0.8114591;
+    }
+    else if (tipo === 3) {
+        calculoPolinomio = 5.035769e-12 * Math.pow(potnom, 5) - 3.071741e-9 * Math.pow(potnom, 4) + 7.350957e-7 * Math.pow(potnom, 3) - 8.885326e-5 * Math.pow(potnom, 2) + 0.005720637 * potnom + 0.7126256;
+    }
+
+    resultado = calculoPolinomio;
+}
+
+let restaFinal = 0;
+
+if (nrebo === 1) {
+    restaFinal = 0.025;
+} else if (nrebo > 1) {
+    restaFinal = 0.03;
+}
+
+const resultadoFinal = (resultado - restaFinal) * 100|| 0; 
+
+  proyectoActivo.pozos[pozoActivo].calcB={
+    inputs:{
+    potnom,
+    npolos,
+    tnominal,
+    efinomi, 
+    tipo, 
+    antiguo,
+    nrebo,
+    hropera_m,
+    costoint, 
+    vab, 
+    ia,
+    vbc,
+    ib,
+    vca,
+    ic, 
+    fp,
+    potnom_1, 
+    tnominal_1, 
+    efinomi_1, 
+    inversion_m,
+    
+},
+    pot_elec_dem,
+    pot_mec_entr,
+    fact_carga,
+    consum_energia,
+    fact_elec,
+    pot_elec_dem_1,
+    fac_carga,
+    consum_energia_1,
+    fact_elec_1,
+    ahorros,
+    PSRI_1,
+    desb_volt,
+    dif_volt,
+    resultado,resultadoFinal
+
+
+  };
+  resB.innerHTML=`
+
+    <h3> Condiciones de operación actuales</h3>
+    
+    Eficiencia del Motor = <b>${resultadoFinal.toLocaleString('es-MX',{minimumFractionDigits:2})} [%]</b><br>
+    Potencia eléctrica demandada = <b>${pot_elec_dem.toLocaleString('es-MX',{minimumFractionDigits:2})} [kW]</b><br>
+    Potencia mecánica entregada = <b>${pot_mec_entr.toLocaleString('es-MX',{minimumFractionDigits:2})} [HP]</b><br>
+    Factor de carga = <b>${fact_carga.toLocaleString('es-MX',{minimumFractionDigits:2})} [%]</b><br>
+    Consumo de energía = <b>${consum_energia.toLocaleString('es-MX',{minimumFractionDigits:2})} [kWh/mes]</b><br>
+    Facturación eléctrica = <b>${fact_elec.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+
+    <h3> Sistema propuesto</h3>
+    Potencia eléctrica demandada = <b>${pot_elec_dem_1.toLocaleString('es-MX',{minimumFractionDigits:2})} [kW]</b><br>
+    Factor de carga = <b>${fac_carga.toLocaleString('es-MX',{minimumFractionDigits:2})} [%]</b><br>
+    Consumo de energía = <b>${consum_energia_1.toLocaleString('es-MX',{minimumFractionDigits:2})} [kWh/mes]</b><br>
+    Facturación eléctrica = <b>${fact_elec_1.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+    
+    <h3> Evaluación económica</h3>
+    Ahorros = <b>${ahorros.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+    PSRI = <b>${PSRI_1.toLocaleString('es-MX',{minimumFractionDigits:2})} [meses]</b><br>
+    
+    <h3> Observaciones acerca de las condiciones actuales</h3>
+    Desbalance de voltaje = <b>${desb_volt.toLocaleString('es-MX',{minimumFractionDigits:2})} [%]</b><br>
+    Diferencia de voltaje respecto al nominal = <b>${dif_volt.toLocaleString('es-MX',{minimumFractionDigits:2})} [%]</b><br>
+    
+  `;
+
+
+  actualizarPozos();
+  guardarLocal();
+ 
+}
+
+
+
+function calcularC(){
+
+   const gasto_4 = Number(document.getElementById("gasto_4").value)|| 0;
+   const nisuccion_4 = Number(document.getElementById("nisuccion_4").value)|| 0;
+   const altmano_4 = Number(document.getElementById("altmano_4").value)|| 0;
+   const presidescar_4 = Number(document.getElementById("presidescar_4").value)|| 0;
+   const potelec_4 = Number(document.getElementById("potelec_4").value);
+   const eficimotor_4 = Number(document.getElementById("eficimotor_4").value)|| 0;
+   const hropera_4 = Number(document.getElementById("hropera_4").value)|| 0;
+   const costoenergi_4 = Number(document.getElementById("costoenergi_4").value)|| 0;
+   const eficibom_4 = Number(document.getElementById("eficibom_4").value)|| 0;
+   const inversion_4 = Number(document.getElementById("inversion_4").value)|| 0;
+  
+ if (!gasto_4 || !nisuccion_4 || !altmano_4 || !presidescar_4 || !potelec_4 || !eficimotor_4 || !hropera_4 || !costoenergi_4 || !eficibom_4 || !inversion_4) {
+     alert("Completa todos los datos del cálculo");
+        return;
+    }
+
+
+
+
+// Fórmulas de C
+
+
+    const eficibomba_4 = ((((((nisuccion_4+altmano_4+presidescar_4*10)*1.11)*gasto_4*9.81)/1000)/potelec_4)/eficimotor_4*100)*100 || 0; 
+    const consumoenergi_4 = (potelec_4*hropera_4)|| 0; 
+    const factelec_4 = (consumoenergi_4*costoenergi_4)|| 0; 
+    const gasto_5 = (gasto_4)|| 0; 
+    const carga_4 = ((nisuccion_4+altmano_4+presidescar_4*10)*1.11)|| 0; 
+    const potelectri_4 = ((potelec_4*eficibomba_4)/eficibom_4)|| 0; 
+    const consumenergi_4 = (potelectri_4*hropera_4)*100|| 0; 
+    const factelectri_4 = (consumenergi_4*costoenergi_4)|| 0; 
+    const ahorro_4 = (factelec_4-factelectri_4)|| 0; 
+    const psri_4 = (inversion_4/ahorro_4)|| 0; 
+   
+
+
+
+
+  proyectoActivo.pozos[pozoActivo].calcC={
+      inputs:{
+  gasto_4, 
+  nisuccion_4, 
+  altmano_4,
+  presidescar_4, 
+  potelec_4, 
+  eficimotor_4,
+  hropera_4,
+  costoenergi_4,
+  eficibom_4,
+  inversion_4 
+  },
+    eficibomba_4,
+    consumoenergi_4,
+    factelec_4,
+    gasto_5,
+    carga_4,
+    potelectri_4,
+    consumenergi_4,
+    factelectri_4,
+    ahorro_4, 
+    psri_4
+  };
+  resC.innerHTML = `
+  <h3> Situación Actual</h3>
+  Eficiencia Bomba = <b>${(eficibomba_4).toLocaleString('es-MX',{minimumFractionDigits:2})} [%]</b><br>
+  Consumo de energía = <b> ${consumoenergi_4.toLocaleString('es-MX',{minimumFractionDigits:2})} [kWh/mes]</b><br>
+  Facturacion Electrica = <b> ${factelec_4.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+  
+  <h3> Especificación del equipo a proponer</h3>
+  Gasto = <b>${gasto_5.toLocaleString('es-MX',{minimumFractionDigits:2})} [Ips]</b><br>
+  Carga = <b>${carga_4.toLocaleString('es-MX',{minimumFractionDigits:2})} [mca]</b><br>
+  
+  <h3> Sistema propuesto</h3>
+  Potencia eléctrica demandada = <b>${(potelectri_4).toLocaleString('es-MX',{minimumFractionDigits:2})} [kW]</b><br>
+  Consumo de energía = <b>${consumenergi_4.toLocaleString('es-MX',{minimumFractionDigits:2})} [kWh/mes]</b><br>
+  Facturacion Electrica = <b>${factelectri_4.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+  
+  <h3> Evaluación económica</h3>
+  Ahorros = <b>${ahorro_4.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+  PSRI = <b>${psri_4.toLocaleString('es-MX',{minimumFractionDigits:2})} [meses]</b><br>
+  
+  
+  
+  
+  `;
+  
+  actualizarPozos();
+  guardarLocal();
+  
+}
+
+
+
+
+
+
+function calcularD(){
+
+ const fact_pot5 = Number(document.getElementById("fact_pot5").value) ;
+  const ener_consum5 = Number(document.getElementById("ener_consum5").value);
+  const import_iva = Number(document.getElementById("import_iva").value);
+  const hropera_5= Number(document.getElementById("hropera_5").value);
+  const capa_capa = Number(document.getElementById("capa_capa").value);
+  const costo_banco = Number(document.getElementById("costo_banco").value);
+  const fact_potr = Number(document.getElementById("fact_potr").value);
+
+const fp5 = fact_pot5 / 100;
+const fpr = fact_potr / 100;
+
+
+ if (!fact_pot5 || !ener_consum5 || !import_iva || !hropera_5 || !capa_capa || !costo_banco || !fact_potr) {
+        alert("Completa todos los datos del cálculo");
+       return;
+    }
+
+
+// Fórmulas de D
+ 
+let  resultado;
+if(fp5 < 0.9){
+
+resultado = (import_iva / (1 + 0.6 * (0.9 / fp5 - 1))) *  (0.6 * (0.9 / fp5 - 1) + 0.25 * (1 - 0.9 / fpr));
+
+}else{
+
+resultado = (import_iva * (1 + 0.25 * (1 - 0.9 / fp5))) * (0.25 * (1 - 0.9 / fpr) - 0.25 * (1 - 0.9 / fp5));
+
+}
+
+let resultado1;
+
+if(capa_capa > (ener_consum5 * Math.sqrt(1 / (fp5 ** 2) - 1) / hropera_5)){
+
+    resultado1 = 1;
+
+}else{
+
+ resultado1 = ener_consum5 / Math.sqrt( (ener_consum5 * Math.sqrt(1 / (fp5 ** 2) - 1) - capa_capa * hropera_5) ** 2 + ener_consum5 ** 2);
+
+   }
+
+
+   
+let resultado2;
+
+if(fp5 < 0.9){
+
+resultado2 = (import_iva / (1 + 0.6 * (0.9 / fp5- 1))) *
+((0.6 * (0.9 / fp5 - 1)) + (0.25 * (1 - 0.9 / resultado1)));
+
+}else{
+
+resultado2 = import_iva * (1 + 0.25 * (1 - 0.9 / fp5)) *
+(0.25 * (1 - 0.9 / fpr) - 0.25 * (1 - 0.9 / fp5));
+
+}
+
+const capaci_capacir = (ener_consum5 * (Math.sqrt(1/(fp5**2) - 1) - Math.sqrt(1/(fpr**2) - 1))) / hropera_5|| 0; 
+const ahorro_espera = (resultado)|| 0; 
+const fact_pot_espera = (resultado1*100)|| 0; 
+const ahorro_5 = (resultado2)|| 0; 
+const PSRI_5 = (costo_banco/ahorro_5)|| 0; 
+
+  proyectoActivo.pozos[pozoActivo].calcD={
+  inputs:{
+  fact_pot5,
+  ener_consum5,
+  import_iva,
+  hropera_5,
+  capa_capa,
+  costo_banco,
+  fact_potr
+  },
+
+    capaci_capacir,
+    ahorro_espera,
+    fact_pot_espera,
+    ahorro_5,
+    PSRI_5};
+
+
+  resD.innerHTML=`
+  <h3> Recomendación</h3>
+  Capacidad del capacitor recomendado = <b>${capaci_capacir.toLocaleString('es-MX',{minimumFractionDigits:2})} [kVar]</b><br>
+  Ahorro esperado = <b> ${ahorro_espera.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+ 
+  <h3> Evaluación Económica</h3>
+  Factor de potencia esperado = <b>${fact_pot_espera.toLocaleString('es-MX',{minimumFractionDigits:2})} [%]</b><br>
+  Ahorro = <b>${ahorro_5.toLocaleString('es-MX',{minimumFractionDigits:1})} [$/mes]</b><br>
+  PSRI = <b> ${PSRI_5.toLocaleString('es-MX',{minimumFractionDigits:2})} [meses]</b><br>
+  
+  `;
+
+
+
+
+
+  actualizarPozos();
+  guardarLocal();
+}
+function calcularE(){
+
+  const nisuccion_6 = Number(document.getElementById("nisuccion_6").value);
+  const altmano_6 = Number(document.getElementById("altmano_6").value);
+  const numdiapro = Number(document.getElementById("numdiapro").value);
+  const consumenergi_6= Number(document.getElementById("consumenergi_6").value);
+  const costoenergi_6 = Number(document.getElementById("costoenergi_6").value);
+  const presion1 = Number(document.getElementById("presion1").value);
+  const caudal1 = Number(document.getElementById("caudal1").value);
+  const dprom1 = Number(document.getElementById("dprom1").value);
+  const presion2 = Number(document.getElementById("presion2").value);
+  const caudal2 = Number(document.getElementById("caudal2").value);
+  const dprom2= Number(document.getElementById("dprom2").value);
+  const presion3 = Number(document.getElementById("presion3").value);
+  const caudal3= Number(document.getElementById("caudal3").value);
+  const dprom3 = Number(document.getElementById("dprom3").value);
+  const presionvv = Number(document.getElementById("presionvv").value);
+  const capacidadvv = Number(document.getElementById("capacidadvv").value);
+  const inversion_6 = Number(document.getElementById("inversion_6").value);
+
+
+
+  if (!nisuccion_6 || !altmano_6 || !numdiapro || !consumenergi_6 || !costoenergi_6 || !presion1 || !caudal1 || !dprom1 || !presion2 || !caudal2 ||!dprom2 || !presion3 || !caudal3 || !dprom3 || !presionvv ||! capacidadvv || !inversion_6) {
+        alert("Completa todos los datos del cálculo");
+       return;
+    }
+
+// Fórmulas de E
+
+  const ahorro_6 = ((((dprom1*caudal1*(nisuccion_6+altmano_6+presion1*10))+(dprom2*caudal2*(nisuccion_6+altmano_6+presion2*10))+(dprom3*caudal3*(nisuccion_6+altmano_6+presion3*10)))-
+  ((nisuccion_6+altmano_6+presionvv*10)*(dprom1*caudal1+dprom2*caudal2+dprom3*caudal3)))/((dprom1*caudal1*(nisuccion_6+altmano_6+presion1*10))+(dprom2*caudal2*(nisuccion_6+altmano_6+presion2*10))+(dprom3*caudal3*(nisuccion_6+altmano_6+presion3*10)))*consumenergi_6*costoenergi_6)|| 0; 
+
+  const PSRI_6 = (inversion_6/ahorro_6)|| 0; 
+
+  proyectoActivo.pozos[pozoActivo].calcE={
+ inputs:{
+   nisuccion_6,
+   altmano_6,
+   numdiapro,
+   consumenergi_6,
+   costoenergi_6,
+   presion1,
+   caudal1,
+   dprom1,
+   presion2,
+   caudal2,
+   dprom2,
+   presion3,
+   caudal3,
+   dprom3,
+   presionvv,
+   capacidadvv,
+   inversion_6
+
+  },
+  ahorro_6,
+  PSRI_6
+
+  };
+  resE.innerHTML=`
+  
+  <h3> Evaluación Económica</h3>
+
+  Ahorro = <b>${ahorro_6.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+  PSRI = <b> ${PSRI_6.toLocaleString('es-MX',{minimumFractionDigits:2})} [meses]</b><br>
+  
+  `;
+
+  actualizarPozos();
+  guardarLocal();
+}
+
+function cargarResultados(){
+
+  limpiarCamposCalculos();
+  const p = proyectoActivo.pozos[pozoActivo];
+
+  // cargar resultados
+
+  if(p.calcA){
+
+    // 🔹 cargar inputs
+   cargarInputs(p.calcA.inputs);
+    // 🔹 mostrar resultados
+    mostrarResultadoA(p.calcA);
+
+  } else {
+
+    // 🔥 limpiar todo si no hay cálculo
+    document.querySelectorAll("#modalcalcA  input")
+      .forEach(input => input.value = "");
+    resA.innerHTML = "-";
+  }
+
+if(p.calcB){
+  //cargar inputs
+ cargarInputs(p.calcB.inputs);
+
+  // 🔹 mostrar resultados
+  mostrarResultadoB(p.calcB);
+
+} else {
+  // 🔥 limpiar todo si no hay cálculo
+  document.querySelectorAll("#modalcalcB input")
+      .forEach(input => input.value = "");
+  resB.innerHTML = "-";
+}
+
+
+if(p.calcC){
+
+    // 🔹 cargar inputs
+    cargarInputs(p.calcC.inputs);
+  
+  
+    // 🔹 mostrar resultados
+    mostrarResultadoC(p.calcC);
+
+  } else {
+
+    // 🔥 limpiar todo si no hay cálculo
+    document.querySelectorAll("#modalcalcC input")
+      .forEach(input => input.value = "");
+
+    resC.innerHTML = "-";
+  }
+
+
+if(p.calcD){
+
+    // 🔹 cargar inputs
+  cargarInputs(p.calcD.inputs);
+  
+    // 🔹 mostrar resultados
+    mostrarResultadoD(p.calcD);
+
+  } else {
+
+    // 🔥 limpiar todo si no hay cálculo
+    document.querySelectorAll("#modalcalcD input")
+      .forEach(input => input.value = "");
+
+    resD.innerHTML = "-";
+  }
+
+  if(p.calcE){
+
+    // 🔹 cargar inputs
+ cargarInputs(p.calcE.inputs);
+  
+    // 🔹 mostrar resultados
+    mostrarResultadoE(p.calcE);
+
+  } else {
+
+    // 🔥 limpiar todo si no hay cálculo
+    document.querySelectorAll("#modalcalcE input")
+      .forEach(input => input.value = "");
+
+    resE.innerHTML = "-";
+  }
+
+if(p.calcTarifa){
+  // 🔹 cargar inputs 
+  cargarInputs(p.calcTarifa.inputs);
+
+  // 🔹 mostrar resultados
+    mostrarResultadoTarifaCompleto(p.calcTarifa);
+
+   } else {
+
+    // 🔥 limpiar todo si no hay cálculo
+    document.querySelectorAll("#modalcalcTarifa input")
+      .forEach(input => input.value = "");
+
+    resultadoTarifaCompleto.innerHTML = "-";
+  }
+
+
+}
+
+
+function limpiarCamposCalculos(){
+
+document.querySelectorAll(
+"#modalcalcA input, #modalcalcB input, #modalcalcC input, #modalcalcD input, #modalcalcE input, #modalcalcTarifa input"
+).forEach(input => input.value = "");
+
+resA.innerHTML = "-";
+resB.innerHTML = "-";
+resC.innerHTML = "-";
+resD.innerHTML = "-";
+resE.innerHTML = "-";
+resultadoTarifaCompleto.innerHTML= "-";
+
+}
+
+function mostrar(id){
+
+  // ocultar tabla
+  document.querySelector(".tabla").style.display = "none";
+
+  // ocultar todo
+  document.querySelectorAll(".seccion")
+    .forEach(sec => sec.classList.add("oculto"));
+
+  // mostrar solo uno
+  document.getElementById(id)
+    .classList.remove("oculto");
+}
+
+function volverMenuCalculos(){
+
+  document.querySelector(".tabla").style.display = "block";
+
+  document.querySelectorAll(".seccion")
+    .forEach(sec => sec.classList.add("oculto"));
+}
+
+
+// ================= BLOQUEO BOTONES =================
+
+function abrirCalcTarifa(){
+  modalcalcTarifa.classList.remove("oculto");
+}
+
+function cerrarModalTarifa(){
+  modalcalcTarifa.classList.add("oculto");
+}
+
+function abrirCalcA(){
+  modalcalcA.classList.remove("oculto");
+}
+
+function cerrarModalCalcA(){
+  modalcalcA.classList.add("oculto");
+}
+
+function abrirCalcB(){
+  modalcalcB.classList.remove("oculto");
+}
+
+function cerrarModalCalcB(){
+  modalcalcB.classList.add("oculto");
+}
+
+function abrirCalcC(){
+  modalcalcC.classList.remove("oculto");
+}
+
+function cerrarModalCalcC(){
+  modalcalcC.classList.add("oculto");
+}
+
+function abrirCalcD(){
+  modalcalcD.classList.remove("oculto");
+}
+
+function cerrarModalCalcD(){
+  modalcalcD.classList.add("oculto");
+}
+
+function abrirCalcE(){
+  modalcalcE.classList.remove("oculto");
+}
+
+function cerrarModalCalcE(){
+  modalcalcE.classList.add("oculto");
+}
+
+function actualizarPozos(){
+  if(proyectoActivo){
+    cargarPozos(proyectoActivo.pozos);
+  }
+}
+
+function mostrarResultadoA(data){
+
+const eficiencia = data.eficiencia_electro ?? 0;
+const consumo = data.consumo_energia ?? 0;
+const fact = data.fact_elect ?? 0;
+const gasto = data.gasto_1 ?? 0;
+const carga = data.carga ?? 0;
+const eficienciaProp = data.eficiencia_electro_1 ?? 0;
+const pot = data.pot_deman ?? 0;
+const consumoProp = data.consumo_energia_1 ?? 0;
+const factProp = data.fact_elect_1 ?? 0;
+const ahorro = data.ahorro ?? 0;
+const psri = data.psri ?? 0;
+
+resA.innerHTML = `
+<h3>Situación Actual</h3>
+
+<div class="fila-semaforo">
+  Eficiencia electromecánica =
+  <b>${eficiencia.toFixed(2)} [%]</b>
+  <span class="semaforo"></span>
+</div>
+Consumo de energía = <b>${consumo.toLocaleString('es-MX',{minimumFractionDigits:2})} [kWh/mes]</b><br>
+Facturación eléctrica = <b>${fact.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+
+<h3>Especificación del equipo a proponer</h3>
+
+Gasto = <b>${gasto.toLocaleString('es-MX',{minimumFractionDigits:2})} [Ips]</b><br>
+Carga = <b>${carga.toLocaleString('es-MX',{minimumFractionDigits:2})} [mca]</b><br>
+
+<h3>Sistema propuesto</h3>
+
+Eficiencia electromecánica = <b>${eficienciaProp.toLocaleString('es-MX',{minimumFractionDigits:2})} [%]</b><br>
+Potencia demandada = <b>${pot.toLocaleString('es-MX',{minimumFractionDigits:2})} [kW]</b><br>
+Consumo de energía = <b>${consumoProp.toLocaleString('es-MX',{minimumFractionDigits:2})} [kWh/mes]</b><br>
+Facturación eléctrica = <b>${factProp.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+
+<h3>Evaluación económica</h3>
+
+Ahorros = <b>${ahorro.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+PSRI = <b>${psri.toLocaleString('es-MX',{minimumFractionDigits:2})} [meses]</b><br>
+`;
+const semaforo = resA.querySelector(".semaforo");
+
+if(eficiencia >= 40){
+  semaforo.classList.add("verde");
+}
+else if(eficiencia >= 25){
+  semaforo.classList.add("amarillo");
+}
+else{
+  semaforo.classList.add("rojo");
+}
+
+}
+
+function mostrarResultadoB(data){
+
+const eficiencia = data.resultadoFinal ?? 0;
+const potElec = data.pot_elec_dem ?? 0;
+const potMec = data.pot_mec_entr ?? 0;
+const carga = data.fact_carga ?? 0;
+const consumo = data.consum_energia ?? 0;
+const fact = data.fact_elec ?? 0;
+
+const potElecP = data.pot_elec_dem_1 ?? 0;
+const cargaP = data.fac_carga ?? 0;
+const consumoP = data.consum_energia_1 ?? 0;
+const factP = data.fact_elec_1 ?? 0;
+
+const ahorro = data.ahorros ?? 0;
+const psri = data.PSRI_1 ?? 0;
+
+const desb = data.desb_volt ?? 0;
+const dif = data.dif_volt ?? 0;
+
+resB.innerHTML = `
+
+<h3>Condiciones de operación actuales</h3>
+
+Eficiencia del Motor = <b>${eficiencia.toLocaleString('es-MX',{minimumFractionDigits:2})} [%]</b><br>
+Potencia eléctrica demandada = <b>${potElec.toLocaleString('es-MX',{minimumFractionDigits:2})} [kW]</b><br>
+Potencia mecánica entregada = <b>${potMec.toLocaleString('es-MX',{minimumFractionDigits:2})} [HP]</b><br>
+Factor de carga = <b>${carga.toLocaleString('es-MX',{minimumFractionDigits:2})} [%]</b><br>
+Consumo de energía = <b>${consumo.toLocaleString('es-MX',{minimumFractionDigits:2})} [kWh/mes]</b><br>
+Facturación eléctrica = <b>${fact.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+
+<h3>Sistema propuesto</h3>
+
+Potencia eléctrica demandada = <b>${potElecP.toLocaleString('es-MX',{minimumFractionDigits:2})} [kW]</b><br>
+Factor de carga = <b>${cargaP.toLocaleString('es-MX',{minimumFractionDigits:2})} [%]</b><br>
+Consumo de energía = <b>${consumoP.toLocaleString('es-MX',{minimumFractionDigits:2})} [kWh/mes]</b><br>
+Facturación eléctrica = <b>${factP.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+
+<h3>Evaluación económica</h3>
+
+Ahorros = <b>${ahorro.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+PSRI = <b>${psri.toLocaleString('es-MX',{minimumFractionDigits:2})} [meses]</b><br>
+
+<h3> Observaciones acerca de las condiciones actuales</h3>
+
+Desbalance de voltaje = <b>${desb.toLocaleString('es-MX',{minimumFractionDigits:2})} [%]</b><br>
+Diferencia de voltaje respecto al nominal = <b>${dif.toLocaleString('es-MX',{minimumFractionDigits:2})} [%]</b><br>
+
+`;
+}
+
+function mostrarResultadoC(data){
+
+const eficiencia = data.eficibomba_4 ?? 0;
+const consumo = data.consumoenergi_4 ?? 0;
+const fact = data.factelec_4 ?? 0;
+
+const gasto = data.gasto_5 ?? 0;
+const carga = data.carga_4 ?? 0;
+
+const pot = data.potelectri_4 ?? 0;
+const consumoP = data.consumenergi_4 ?? 0;
+const factP = data.factelectri_4 ?? 0;
+
+const ahorro = data.ahorro_4 ?? 0;
+const psri = data.psri_4 ?? 0;
+
+resC.innerHTML = `
+
+<h3>Situación Actual</h3>
+
+Eficiencia Bomba = <b>${eficiencia.toLocaleString('es-MX',{minimumFractionDigits:2})} [%]</b><br>
+Consumo de energía = <b>${consumo.toLocaleString('es-MX',{minimumFractionDigits:2})} [kWh/mes]</b><br>
+Facturación Eléctrica = <b>${fact.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+
+ <h3> Especificación del equipo a proponer</h3>
+
+Gasto = <b>${gasto.toLocaleString('es-MX',{minimumFractionDigits:2})} [lps]</b><br>
+Carga = <b>${carga.toLocaleString('es-MX',{minimumFractionDigits:2})} [mca]</b><br>
+
+<h3>Sistema propuesto</h3>
+
+Potencia eléctrica demandada = <b>${pot.toLocaleString('es-MX',{minimumFractionDigits:2})} [kW]</b><br>
+Consumo de energía = <b>${consumoP.toLocaleString('es-MX',{minimumFractionDigits:2})} [kWh/mes]</b><br>
+Facturacion Electrica = <b>${factP.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+
+<h3>Evaluación económica</h3>
+
+Ahorros = <b>${ahorro.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+PSRI = <b>${psri.toLocaleString('es-MX',{minimumFractionDigits:2})} [meses]</b><br>
+
+`;
+}
+
+function mostrarResultadoD(data){
+
+const capaci = data.capaci_capacir ?? 0;
+const ahorroEsp = data.ahorro_espera ?? 0;
+const fpEsp = data.fact_pot_espera ?? 0;
+const ahorro = data.ahorro_5 ?? 0;
+const psri = data.PSRI_5 ?? 0;
+
+resD.innerHTML = `
+
+<h3>Recomendación</h3>
+
+Capacidad del capacitor recomendado =
+<b>${capaci.toLocaleString('es-MX',{minimumFractionDigits:2})} [kVar]</b><br>
+
+Ahorro esperado =
+<b>${ahorroEsp.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+
+<h3>Evaluación Económica</h3>
+
+Factor de potencia esperado =
+<b>${fpEsp.toLocaleString('es-MX',{minimumFractionDigits:2})} [%]</b><br>
+
+Ahorro =
+<b>${ahorro.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+
+PSRI =
+<b>${psri.toLocaleString('es-MX',{minimumFractionDigits:2})} [meses]</b><br>
+
+`;
+}
+
+function mostrarResultadoE(data){
+
+const ahorro = data.ahorro_6 ?? 0;
+const psri = data.PSRI_6 ?? 0;
+
+resE.innerHTML = `
+
+<h3>Evaluación Económica</h3>
+
+Ahorro =
+<b>${ahorro.toLocaleString('es-MX',{minimumFractionDigits:2})} [$/mes]</b><br>
+
+PSRI =
+<b>${psri.toLocaleString('es-MX',{minimumFractionDigits:2})} [meses]</b><br>
+
+`;
+}
+
+
+function mostrarResultadoTarifaCompleto(data){
+
+resultadoTarifaCompleto.innerHTML = `
+
+<h3>Datos Actuales</h3>
+
+Tarifa actual estimada = <b> ${data.tarifaActual.toFixed(2)} [$/kWh]</b><br>
+Costo actual = <b>$ ${data.inputs.costo_total.toLocaleString()}</b><br>
+Clasificación = <b>${data.tipoTarifa}</b><br><br>
+
+<h3>Costo estimado para tarifa OM</h3>
+
+Costo OM = <b>$ ${data.costoOM.toLocaleString()}</b><br>
+Ahorro OM = <b>$ ${data.ahorroOM.toLocaleString()}</b><br><br>
+
+<h3>Costo estimado para tarifa HM</h3>
+
+Costo HM = <b>$ ${data.costoHM.toLocaleString()}</b><br>
+Ahorro HM = <b>$ ${data.ahorroHM.toLocaleString()}</b><br><br>
+
+<h3>Inversion estimada para cambio de tarifa en instalciones electricas</h3>
+
+Transformador estimado = <b>$ ${data.transformador.toLocaleString()}</b><br>
+Banco de capacitores = <b>$ ${data.capacitores.toLocaleString()}</b><br>
+Instalación eléctrica = <b>$ ${data.instalacion.toLocaleString()}</b><br>
+Inversión estimada = <b>$ ${data.inversion.toLocaleString()}</b><br><br>
+
+<h3>Recuperacion de Inversion</h3>
+
+PSRI OM = <b>${data.psriOM.toFixed(2)} [meses]</b><br>
+PSRI HM = <b>${data.psriHM.toFixed(2)} [meses]</b>
+
+<h3>Recomendación de Tarifa</h3>
+
+La tarifa más conveniente es: <b>${data.mejorTarifa}</b><br>
+Ahorro estimado mensual: <b>$ ${data.ahorroMejor.toLocaleString('es-MX',{minimumFractionDigits:2})}</b><br><br>
+
+<h3>Justificación</h3>
+
+El costo actual de energía es <b>${data.tarifaActual.toFixed(2)} $/kWh</b>, 
+lo cual indica que el sistema opera con una tarifa relativamente alta 
+en comparación con tarifas de media tensión como OM o HM.<br><br>
+
+La tarifa <b>${data.mejorTarifa}</b> reduce el costo de energía debido a menores cargos 
+por kWh y mejores condiciones tarifarias para sistemas de bombeo.<br><br>
+
+<h3>Medidas adicionales para reducir el costo eléctrico</h3>
+
+• Revisar eficiencia de bomba y motor.<br>
+• Analizar instalación de variador de velocidad.<br>
+• Corregir factor de potencia con banco de capacitores.<br>
+• Reducir horas de operación en horario punta.<br>
+`;
+
+}
+
+window.onclick = function(e){
+  if(e.target === modalBuscador) cerrarBuscador();
+  if(e.target === modalNuevo) cerrarNuevo();
+  if(e.target === modalPozo) cerrarPozo();
+  if(e.target === modalcalcA) cerrarModalCalcA();
+  if(e.target === modalcalcB) cerrarModalCalcB();
+  if(e.target === modalcalcC) cerrarModalCalcC();
+  if(e.target === modalcalcD) cerrarModalCalcD();
+  if(e.target === modalcalcE) cerrarModalCalcE();
+  if(e.target === modalcalcTarifa) cerrarModalTarifa();
+
+}
+
+function eliminarProyecto(i){
+
+  if (!confirm("¿Estás seguro de eliminar este proyecto?")) {
+    return; // cancela si el usuario dice NO
+  }
+
+  if(proyectoActivo === proyectos[i]){
+    proyectoActivo = null;
+    tablaPozos.querySelector("tbody").innerHTML = "";
+    document.getElementById("responsable").innerText = "";
+    document.getElementById("proyecto").innerText = "";
+    document.getElementById("municipio").innerText = "";
+  }
+
+  proyectos.splice(i,1);
+  filtro.value = "";
+  guardarLocal();
+  cargarProyectos();
+}
+
+function activarSemaforo(eficiencia){
+
+  const semaforo = document.getElementById("semaforoA_calc");
+
+  if(!semaforo) return;
+
+  semaforo.classList.remove("verde","amarillo","rojo");
+
+  if(eficiencia >= 40){
+    semaforo.classList.add("verde");
+  }
+  else if(eficiencia >= 25){
+    semaforo.classList.add("amarillo");
+  }
+  else{
+    semaforo.classList.add("rojo");
+  }
+}
+
+function calcularEficienciaA(){
+
+  const gasto = Number(document.getElementById("gasto").value)|| 0; 
+  const nisuccion = Number(document.getElementById("nisuccion").value)|| 0;
+  const alturaman = Number(document.getElementById("alturaman").value)|| 0;
+  const presiondes = Number(document.getElementById("presiondes").value)|| 0;
+  const potelc = Number(document.getElementById("potelc").value)|| 0;
+
+  if(potelc === 0) return 0;
+
+  return (((((nisuccion+alturaman+presiondes*10)*1.01) *gasto*9.81/100)/potelc)*10);
+}
+
+</script>
+<script>
+
+
+
+</script>
+</div>
+
+</body>
+</html>
